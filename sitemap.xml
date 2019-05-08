@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://crews.github.io/blog/2019/05/08/yeoman/</loc>
+    
+    <lastmod>2019-05-08T14:00:49.759Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://crews.github.io/blog/2019/04/23/cookie/</loc>
     
     <lastmod>2019-04-25T09:34:54.871Z</lastmod>
@@ -51,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://crews.github.io/blog/2018/11/25/wxshare/</loc>
+    <loc>http://crews.github.io/blog/2019/02/16/react-router/</loc>
     
     <lastmod>2019-03-26T05:30:18.062Z</lastmod>
     
@@ -72,23 +79,9 @@
   </url>
   
   <url>
-    <loc>http://crews.github.io/blog/2019/02/16/react-router/</loc>
+    <loc>http://crews.github.io/blog/2018/11/25/wxshare/</loc>
     
     <lastmod>2019-03-26T05:30:18.062Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2019/01/25/prototype/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.061Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2019/01/08/promise/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.061Z</lastmod>
     
   </url>
   
@@ -107,6 +100,48 @@
   </url>
   
   <url>
+    <loc>http://crews.github.io/blog/2019/01/08/promise/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.061Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2019/01/25/prototype/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.061Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2019/01/13/js%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2018/10/16/edx-theme/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2018/09/07/https/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2018/11/02/js%E8%B7%A8%E5%9F%9F/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://crews.github.io/blog/2018/07/31/edx-devstack/</loc>
     
     <lastmod>2019-03-26T05:30:18.060Z</lastmod>
@@ -121,20 +156,6 @@
   </url>
   
   <url>
-    <loc>http://crews.github.io/blog/2018/10/16/edx-theme/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2018/11/02/js%E8%B7%A8%E5%9F%9F/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://crews.github.io/blog/2018/07/28/edx-fronted/</loc>
     
     <lastmod>2019-03-26T05:30:18.060Z</lastmod>
@@ -142,28 +163,7 @@
   </url>
   
   <url>
-    <loc>http://crews.github.io/blog/2019/01/13/js%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2018/09/07/https/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.060Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2019/01/03/babel/</loc>
-    
-    <lastmod>2019-03-26T05:30:18.059Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://crews.github.io/blog/2019/01/21/debounce/</loc>
+    <loc>http://crews.github.io/blog/2018/07/26/2018-07-26-gitlab%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2019-03-26T05:30:18.059Z</lastmod>
     
@@ -177,6 +177,13 @@
   </url>
   
   <url>
+    <loc>http://crews.github.io/blog/2019/01/21/debounce/</loc>
+    
+    <lastmod>2019-03-26T05:30:18.059Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://crews.github.io/blog/2018/10/23/css3/</loc>
     
     <lastmod>2019-03-26T05:30:18.059Z</lastmod>
@@ -184,7 +191,7 @@
   </url>
   
   <url>
-    <loc>http://crews.github.io/blog/2018/07/26/2018-07-26-gitlab%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http://crews.github.io/blog/2019/01/03/babel/</loc>
     
     <lastmod>2019-03-26T05:30:18.059Z</lastmod>
     
