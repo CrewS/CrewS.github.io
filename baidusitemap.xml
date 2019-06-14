@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://crews.github.io/blog/2019/06/11/yeoman-generator/</loc>
+    <lastmod>2019-06-14</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2019/05/08/yeoman/</loc>
+    <lastmod>2019-06-05</lastmod>
+  </url>  <url>
     <loc>http://crews.github.io/blog/2019/05/13/wxshare-signatrue/</loc>
     <lastmod>2019-05-14</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2018/11/25/wxshare/</loc>
-    <lastmod>2019-05-13</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2019/05/08/yeoman/</loc>
-    <lastmod>2019-05-08</lastmod>
+    <lastmod>2019-05-14</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2019/04/23/cookie/</loc>
     <lastmod>2019-04-25</lastmod>
@@ -25,10 +28,10 @@
     <loc>http://crews.github.io/blog/2019/01/14/%E9%97%AD%E5%8C%85/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
-    <loc>http://crews.github.io/blog/2018/08/22/redux/</loc>
+    <loc>http://crews.github.io/blog/2019/02/16/react-router/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
-    <loc>http://crews.github.io/blog/2019/02/16/react-router/</loc>
+    <loc>http://crews.github.io/blog/2018/08/22/redux/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2018/12/28/webpack/</loc>
@@ -37,22 +40,16 @@
     <loc>http://crews.github.io/blog/2019/01/08/promise/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
-    <loc>http://crews.github.io/blog/2019/01/25/prototype/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
     <loc>http://crews.github.io/blog/2018/08/12/nginx-server-name/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2018/06/05/newpage/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
-    <loc>http://crews.github.io/blog/2018/10/17/js-array/</loc>
+    <loc>http://crews.github.io/blog/2019/01/25/prototype/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2019/01/13/js%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2018/11/02/js%E8%B7%A8%E5%9F%9F/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2018/07/28/edx-fronted/</loc>
@@ -61,28 +58,34 @@
     <loc>http://crews.github.io/blog/2018/07/31/edx-devstack/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
+    <loc>http://crews.github.io/blog/2018/09/07/https/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2018/11/02/js%E8%B7%A8%E5%9F%9F/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
     <loc>http://crews.github.io/blog/2018/10/16/edx-theme/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
-    <loc>http://crews.github.io/blog/2018/09/07/https/</loc>
+    <loc>http://crews.github.io/blog/2018/10/17/js-array/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2018/07/20/2018-07-20-hexo-admin/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2019/01/21/debounce/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2018/10/23/css3/</loc>
+    <lastmod>2019-03-26</lastmod>
+  </url>  <url>
+    <loc>http://crews.github.io/blog/2018/09/03/docker/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2018/07/26/2018-07-26-gitlab%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>  <url>
     <loc>http://crews.github.io/blog/2019/01/03/babel/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2019/01/21/debounce/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2018/09/03/docker/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2018/10/23/css3/</loc>
-    <lastmod>2019-03-26</lastmod>
-  </url>  <url>
-    <loc>http://crews.github.io/blog/2018/07/20/2018-07-20-hexo-admin/</loc>
     <lastmod>2019-03-26</lastmod>
   </url>
 </urlset>
