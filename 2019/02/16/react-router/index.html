@@ -1,1 +1,525 @@
-<!-- build time:Wed Jun 02 2021 22:02:35 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="react,"><meta name="description" content="前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&amp;lt;BrowserRouter&amp;gt; 的使用与之前作为 history"><meta name="keywords" content="react"><meta property="og:type" content="article"><meta property="og:title" content="React Router v4"><meta property="og:url" content="http://crews.github.io/blog/2019/02/16/react-router/index.html"><meta property="og:site_name" content="进击的前端工程狮"><meta property="og:description" content="前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&amp;lt;BrowserRouter&amp;gt; 的使用与之前作为 history"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2019-03-26T05:30:18.062Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="React Router v4"><meta name="twitter:description" content="前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&amp;lt;BrowserRouter&amp;gt; 的使用与之前作为 history"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://crews.github.io/blog/2019/02/16/react-router/"><title>React Router v4 | 进击的前端工程狮</title><script type="text/javascript">var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?a06959c1cb638cb834e19902e6576525";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">进击的前端工程狮</span> <span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description"></h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li></ul></nav><meta name="referrer" content="no-referrer"></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://crews.github.io/blog/2019/02/16/react-router/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Crews"><meta itemprop="description" content=""><meta itemprop="image" content="/images/avatar.gif"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="进击的前端工程狮"></span><header class="post-header"><h2 class="post-title" itemprop="name headline">React Router v4</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-16T11:15:23+08:00">2019-02-16</time></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">1,303 字 </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span title="阅读时长">5 分钟</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。<br>系统学习react router，深入理解前端路由的概念。</p><h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>v4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，<code>&lt;BrowserRouter&gt;</code> 的使用与之前作为 history 属性传入的方式也不同了。v4中route可以当作component一样使用，只不过只在路由匹配后才会生效。</p><h2 id="路由匹配规则"><a href="#路由匹配规则" class="headerlink" title="路由匹配规则"></a>路由匹配规则</h2><h4 id="1、包含式路由与exact"><a href="#1、包含式路由与exact" class="headerlink" title="1、包含式路由与exact"></a>1、包含式路由与exact</h4><p>react router的路由path匹配是包含式路由匹配。<br>例如path: /bar/foo 会匹配 [/,/bar,/bar/foo]的路由<br>如果单纯使用<route>,路由匹配的组件将所有都生效。<br><strong>exact</strong> 当值为true时，则要求路径与location.pathname必须完全匹配。</route></p><h4 id="2、独立路由-Switch"><a href="#2、独立路由-Switch" class="headerlink" title="2、独立路由 Switch"></a>2、独立路由 Switch</h4><p><switch>组件则是渲染匹配地址的第一个<route>或者 <code>&lt;Redirect&gt;</code>。</route></switch></p><h4 id="3、重定向-Redirect"><a href="#3、重定向-Redirect" class="headerlink" title="3、重定向 Redirect"></a>3、重定向 Redirect</h4><p>渲染<code>&lt;Redirect&gt;</code> 的时候将会导航到一个新的地址。这个新的地址将会覆盖在访问历史记录里面的原地址，就像服务端的重定向（HTTP 3XX）一样。<br><code>&lt;Redirect&gt;</code> 参数对应的作用如下<br>to：重定向目标地址或URL<br>push：当设置为 true 时，重定向（redirecting）将会把新地址加入访问历史记录里面，而不是替换掉目前的地址。<br>from：需要被重定向的path，当渲染一个包含在<switch>里面的<code>&lt;Redirect&gt;</code>的时候，这可以用作匹配一个地址。</switch></p><h4 id="4、组合使用"><a href="#4、组合使用" class="headerlink" title="4、组合使用"></a>4、组合使用</h4><p>实际的开发生产中，基本都需要组合使用路由规则实现我们的需求<br>例子如下<br></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;main&gt;</span><br><span class="line">&lt;Switch&gt;</span><br><span class="line">    &lt;Route exact path=<span class="string">'/'</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">'/roster'</span> component=&#123;Roster&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">'/schedule'</span> component=&#123;Schedule&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">'error'</span> component=&#123;<span class="built_in">Error</span>&#125;/&gt;</span><br><span class="line">    &lt;Redirect to=<span class="string">'/error'</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">&lt;/m</span>ain&gt;</span><br></pre></td></tr></table></figure><p></p><p>路由与页面分别对应<br>/ =&gt; home<br>/roster =&gt; roster<br>/schedule =&gt; schedule<br>/error =&gt; error<br>当什么都没匹配到的时候重定向到 /error 路由然后页面为 error</p><h2 id="嵌套布局概念"><a href="#嵌套布局概念" class="headerlink" title="嵌套布局概念"></a>嵌套布局概念</h2><p>v4中的概念是路由可以当组件一样的使用，那么在布局的时候可以采用这样的方式进行布局<br>看以下官方的介绍文档中的例子，对比两种方式区别，理解v4特性带来的好处。<br>需求是 “拓展用户模块”，需要一个可以浏览用户信息界面和每个人的个人用户信息页面<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">const PrimaryLayout = props =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className=&quot;primary-layout&quot;&gt;</span><br><span class="line">      &lt;PrimaryHeader /&gt;</span><br><span class="line">      &lt;main&gt;</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">          &lt;Route path=&quot;/&quot; exact component=&#123;HomePage&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/users&quot; exact component=&#123;BrowseUsersPage&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/users/:userId&quot; component=&#123;UserProfilePage&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/products&quot; exact component=&#123;BrowseProductsPage&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/products/:productId&quot; component=&#123;ProductProfilePage&#125; /&gt;</span><br><span class="line">          &lt;Redirect to=&quot;/&quot; /&gt;</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">      &lt;/main&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const BrowseUsersPage = () =&gt; (</span><br><span class="line">  &lt;div className=&quot;user-sub-layout&quot;&gt;</span><br><span class="line">    &lt;aside&gt;</span><br><span class="line">      &lt;UserNav /&gt;</span><br><span class="line">    &lt;/aside&gt;</span><br><span class="line">    &lt;div className=&quot;primary-content&quot;&gt;</span><br><span class="line">      &lt;BrowseUserTable /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const UserProfilePage = props =&gt; (</span><br><span class="line">  &lt;div className=&quot;user-sub-layout&quot;&gt;</span><br><span class="line">    &lt;aside&gt;</span><br><span class="line">      &lt;UserNav /&gt;</span><br><span class="line">    &lt;/aside&gt;</span><br><span class="line">    &lt;div className=&quot;primary-content&quot;&gt;</span><br><span class="line">      &lt;UserProfile userId=&#123;props.match.params.userId&#125; /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p></p><p>以上的方法是直接对每个页面增加路由以及对应的页面，不过这样会造成重复代码<br>重构代码如下<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const PrimaryLayout = props =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className=&quot;primary-layout&quot;&gt;</span><br><span class="line">      &lt;PrimaryHeader /&gt;</span><br><span class="line">      &lt;main&gt;</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">          &lt;Route path=&quot;/&quot; exact component=&#123;HomePage&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/users&quot; component=&#123;UserSubLayout&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/products&quot; component=&#123;ProductSubLayout&#125; /&gt;</span><br><span class="line">          &lt;Redirect to=&quot;/&quot; /&gt;</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">      &lt;/main&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const UserSubLayout = () =&gt; (</span><br><span class="line">  &lt;div className=&quot;user-sub-layout&quot;&gt;</span><br><span class="line">    &lt;aside&gt;</span><br><span class="line">      &lt;UserNav /&gt;</span><br><span class="line">    &lt;/aside&gt;</span><br><span class="line">    &lt;div className=&quot;primary-content&quot;&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route path=&quot;/users&quot; exact component=&#123;BrowseUsersPage&#125; /&gt;</span><br><span class="line">        &lt;Route path=&quot;/users/:userId&quot; component=&#123;UserProfilePage&#125; /&gt;</span><br><span class="line">      &lt;/Switch&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const BrowseUsersPage = () =&gt; &lt;BrowseUserTable /&gt;</span><br><span class="line">const UserProfilePage = props =&gt; &lt;UserProfile userId=&#123;props.match.params.userId&#125; /&gt;</span><br></pre></td></tr></table></figure><p></p><p>这种方式是将相似的界面抽取出来做成layout容器组件，在子组件中再去进行路由匹配渲染不同页面。route 组件化思想得到充分的利用。</p><h2 id="match-对象"><a href="#match-对象" class="headerlink" title="match 对象"></a>match 对象</h2><p>match 对象包含了<route path="">如何与URL匹配的信息。match 对象包含以下属性：</route></p><ul><li>params：（ object 类型）即路径参数，通过解析URL中动态的部分获得的键值对。</li><li>isExact：( 当为 true 时，整个URL都需要匹配。</li><li>path：（ string 类型）用来做匹配的路径格式。在需要嵌套<route>的时候用到。</route></li><li>url：（ string 类型）URL匹配的部分，在需要嵌套<link>的时候会用到。</li></ul><p>获取match对象的方式</p><ul><li>在 Route component 中，以 this.props.match 方式。</li><li>在 Route render 中，以 ({ match }) =&gt; () 方式。</li><li>在 Route children 中，以 ({ match }) =&gt; () 方式</li><li>在 withRouter 中，以 this.props.match 方式</li><li>matchPath 的返回值</li></ul><h2 id="组件Link与Navlink"><a href="#组件Link与Navlink" class="headerlink" title="组件Link与Navlink"></a>组件Link与Navlink</h2><p>Navlink是Link的一个特定版本, 会在匹配上当前URL的时候会给已经渲染的元素添加样式参数<br><code>&lt;Link&gt;</code>属性<br>to: 目标路由<br>replace:当设置为 true 时，点击链接后将使用新地址替换掉访问历史记录里面的原地址。当设置为 false 时，点击链接后将在原有访问历史记录的基础上添加一个新的纪录。 默认为false</p><p><code>&lt;Navlink&gt;</code>属性<br>activeClassName：激活时添加类名<br>activeStyle：激活时添加样式<br>exact：控制是否完全匹配<br>strict：匹配路由是否包/闭合<br>isActive: 添加额外函数用于判断是否激活</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://router.happyfe.com/" target="_blank" rel="noopener">react router v4中文文档</a></li><li><a href="https://www.jianshu.com/p/bf6b45ce5bcc" target="_blank" rel="noopener">React Router 4：痛过之后的豁然开朗</a></li><li><a href="https://css-tricks.com/react-router-4/" target="_blank" rel="noopener">All About React Router 4</a></li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/react/" rel="tag"># react</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/01/25/prototype/" rel="next" title="JavaScript原型链与继承"><i class="fa fa-chevron-left"></i> JavaScript原型链与继承</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019/03/26/react-saga/" rel="prev" title="react-saga">react-saga <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div id="gitalk-container"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">Crews</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">36</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">35</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/CrewS" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a> </span><span class="links-of-author-item"><a href="mailto:lch1794@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Router"><span class="nav-number">2.</span> <span class="nav-text">React Router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由匹配规则"><span class="nav-number">3.</span> <span class="nav-text">路由匹配规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、包含式路由与exact"><span class="nav-number">3.0.1.</span> <span class="nav-text">1、包含式路由与exact</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、独立路由-Switch"><span class="nav-number">3.0.2.</span> <span class="nav-text">2、独立路由 Switch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、重定向-Redirect"><span class="nav-number">3.0.3.</span> <span class="nav-text">3、重定向 Redirect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、组合使用"><span class="nav-number">3.0.4.</span> <span class="nav-text">4、组合使用</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套布局概念"><span class="nav-number">4.</span> <span class="nav-text">嵌套布局概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#match-对象"><span class="nav-number">5.</span> <span class="nav-text">match 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件Link与Navlink"><span class="nav-number">6.</span> <span class="nav-text">组件Link与Navlink</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2021</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">Crews</span> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-area-chart"></i> </span><span class="post-meta-item-text">Site words total count&#58;</span> <span title="Site words total count">32.1k</span></div><div class="footer-custom">Accelerated by <a target="_blank" href="https://www.upyun.com/">UPYUN</a></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"><script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script><script type="text/javascript">var gitalk=new Gitalk({clientID:"948b7b9d3202ee495408",clientSecret:"93c0ae68c7ebab99443a58aa09ea8687e605aae8",repo:"CrewS.github.io",owner:"Crews",admin:["Crews"],id:md5(window.location.pathname),distractionFreeMode:"true"});gitalk.render("gitalk-container")</script></body></html><!-- rebuild by neat -->
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Crews">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。 React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&lt;BrowserRouter&gt; 的使用与之前作为 histor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Router v4">
+<meta property="og:url" content="http://crews.github.io/blog/2019/02/16/react-router/index.html">
+<meta property="og:site_name" content="进击的前端工程狮">
+<meta property="og:description" content="前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。 React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&lt;BrowserRouter&gt; 的使用与之前作为 histor">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-16T03:15:23.000Z">
+<meta property="article:modified_time" content="2019-03-26T05:30:18.062Z">
+<meta property="article:author" content="Crews">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>React Router v4 - 进击的前端工程狮</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>程序与浪漫</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React Router v4">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-02-16 11:15" pubdate>
+        2019年2月16日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React Router v4</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。<br>系统学习react router，深入理解前端路由的概念。</p>
+<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>v4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，<code>&lt;BrowserRouter&gt;</code> 的使用与之前作为 history 属性传入的方式也不同了。v4中route可以当作component一样使用，只不过只在路由匹配后才会生效。</p>
+<h2 id="路由匹配规则"><a href="#路由匹配规则" class="headerlink" title="路由匹配规则"></a>路由匹配规则</h2><h4 id="1、包含式路由与exact"><a href="#1、包含式路由与exact" class="headerlink" title="1、包含式路由与exact"></a>1、包含式路由与exact</h4><p>react router的路由path匹配是包含式路由匹配。<br>例如path: /bar/foo 会匹配 [/,/bar,/bar/foo]的路由<br>如果单纯使用<Route>,路由匹配的组件将所有都生效。<br><strong>exact</strong> 当值为true时，则要求路径与location.pathname必须完全匹配。</p>
+<h4 id="2、独立路由-Switch"><a href="#2、独立路由-Switch" class="headerlink" title="2、独立路由 Switch"></a>2、独立路由 Switch</h4><p><Switch> 组件则是渲染匹配地址的第一个 <Route> 或者 <code>&lt;Redirect&gt;</code>。</p>
+<h4 id="3、重定向-Redirect"><a href="#3、重定向-Redirect" class="headerlink" title="3、重定向 Redirect"></a>3、重定向 Redirect</h4><p>渲染<code>&lt;Redirect&gt;</code> 的时候将会导航到一个新的地址。这个新的地址将会覆盖在访问历史记录里面的原地址，就像服务端的重定向（HTTP 3XX）一样。<br><code>&lt;Redirect&gt;</code> 参数对应的作用如下<br>to：重定向目标地址或URL<br>push：当设置为 true 时，重定向（redirecting）将会把新地址加入访问历史记录里面，而不是替换掉目前的地址。<br>from：需要被重定向的path，当渲染一个包含在<Switch>里面的<code>&lt;Redirect&gt;</code>的时候，这可以用作匹配一个地址。</p>
+<h4 id="4、组合使用"><a href="#4、组合使用" class="headerlink" title="4、组合使用"></a>4、组合使用</h4><p>实际的开发生产中，基本都需要组合使用路由规则实现我们的需求<br>例子如下<br><figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs js">&lt;main&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Switch</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;Home&#125;/</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/roster&#x27;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;Roster&#125;/</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/schedule&#x27;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;Schedule&#125;/</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;error&#x27;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;Error&#125;/</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Redirect</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&#x27;/error&#x27;</span> /&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">Switch</span>&gt;</span></span><br>&lt;/main&gt;<br></code></pre></td></tr></table></figure><br>路由与页面分别对应<br>/ =&gt; home<br>/roster =&gt; roster<br>/schedule =&gt; schedule<br>/error =&gt; error<br>当什么都没匹配到的时候重定向到 /error 路由然后页面为 error</p>
+<h2 id="嵌套布局概念"><a href="#嵌套布局概念" class="headerlink" title="嵌套布局概念"></a>嵌套布局概念</h2><p>v4中的概念是路由可以当组件一样的使用，那么在布局的时候可以采用这样的方式进行布局<br>看以下官方的介绍文档中的例子，对比两种方式区别，理解v4特性带来的好处。<br>需求是 “拓展用户模块”，需要一个可以浏览用户信息界面和每个人的个人用户信息页面<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs react">const PrimaryLayout = props =&gt; &#123;<br>  return (<br>    &lt;div className=&quot;primary-layout&quot;&gt;<br>      &lt;PrimaryHeader /&gt;<br>      &lt;main&gt;<br>        &lt;Switch&gt;<br>          &lt;Route path=&quot;/&quot; exact component=&#123;HomePage&#125; /&gt;<br>          &lt;Route path=&quot;/users&quot; exact component=&#123;BrowseUsersPage&#125; /&gt;<br>          &lt;Route path=&quot;/users/:userId&quot; component=&#123;UserProfilePage&#125; /&gt;<br>          &lt;Route path=&quot;/products&quot; exact component=&#123;BrowseProductsPage&#125; /&gt;<br>          &lt;Route path=&quot;/products/:productId&quot; component=&#123;ProductProfilePage&#125; /&gt;<br>          &lt;Redirect to=&quot;/&quot; /&gt;<br>        &lt;/Switch&gt;<br>      &lt;/main&gt;<br>    &lt;/div&gt;<br>  )<br>&#125;<br><br>const BrowseUsersPage = () =&gt; (<br>  &lt;div className=&quot;user-sub-layout&quot;&gt;<br>    &lt;aside&gt;<br>      &lt;UserNav /&gt;<br>    &lt;/aside&gt;<br>    &lt;div className=&quot;primary-content&quot;&gt;<br>      &lt;BrowseUserTable /&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>)<br><br>const UserProfilePage = props =&gt; (<br>  &lt;div className=&quot;user-sub-layout&quot;&gt;<br>    &lt;aside&gt;<br>      &lt;UserNav /&gt;<br>    &lt;/aside&gt;<br>    &lt;div className=&quot;primary-content&quot;&gt;<br>      &lt;UserProfile userId=&#123;props.match.params.userId&#125; /&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>)<br></code></pre></td></tr></table></figure><br>以上的方法是直接对每个页面增加路由以及对应的页面，不过这样会造成重复代码<br>重构代码如下<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs react">const PrimaryLayout = props =&gt; &#123;<br>  return (<br>    &lt;div className=&quot;primary-layout&quot;&gt;<br>      &lt;PrimaryHeader /&gt;<br>      &lt;main&gt;<br>        &lt;Switch&gt;<br>          &lt;Route path=&quot;/&quot; exact component=&#123;HomePage&#125; /&gt;<br>          &lt;Route path=&quot;/users&quot; component=&#123;UserSubLayout&#125; /&gt;<br>          &lt;Route path=&quot;/products&quot; component=&#123;ProductSubLayout&#125; /&gt;<br>          &lt;Redirect to=&quot;/&quot; /&gt;<br>        &lt;/Switch&gt;<br>      &lt;/main&gt;<br>    &lt;/div&gt;<br>  )<br>&#125;<br><br>const UserSubLayout = () =&gt; (<br>  &lt;div className=&quot;user-sub-layout&quot;&gt;<br>    &lt;aside&gt;<br>      &lt;UserNav /&gt;<br>    &lt;/aside&gt;<br>    &lt;div className=&quot;primary-content&quot;&gt;<br>      &lt;Switch&gt;<br>        &lt;Route path=&quot;/users&quot; exact component=&#123;BrowseUsersPage&#125; /&gt;<br>        &lt;Route path=&quot;/users/:userId&quot; component=&#123;UserProfilePage&#125; /&gt;<br>      &lt;/Switch&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>)<br><br>const BrowseUsersPage = () =&gt; &lt;BrowseUserTable /&gt;<br>const UserProfilePage = props =&gt; &lt;UserProfile userId=&#123;props.match.params.userId&#125; /&gt;<br></code></pre></td></tr></table></figure><br>这种方式是将相似的界面抽取出来做成layout容器组件，在子组件中再去进行路由匹配渲染不同页面。route 组件化思想得到充分的利用。</p>
+<h2 id="match-对象"><a href="#match-对象" class="headerlink" title="match 对象"></a>match 对象</h2><p>match 对象包含了 <Route path> 如何与URL匹配的信息。match 对象包含以下属性：</p>
+<ul>
+<li>params：（ object 类型）即路径参数，通过解析URL中动态的部分获得的键值对。</li>
+<li>isExact：( 当为 true 时，整个URL都需要匹配。</li>
+<li>path：（ string 类型）用来做匹配的路径格式。在需要嵌套 <Route> 的时候用到。</li>
+<li>url：（ string 类型）URL匹配的部分，在需要嵌套 <Link> 的时候会用到。</li>
+</ul>
+<p>获取match对象的方式</p>
+<ul>
+<li>在 Route component 中，以 this.props.match 方式。</li>
+<li>在 Route render 中，以 ({ match }) =&gt; () 方式。</li>
+<li>在 Route children 中，以 ({ match }) =&gt; () 方式</li>
+<li>在 withRouter 中，以 this.props.match 方式</li>
+<li>matchPath 的返回值</li>
+</ul>
+<h2 id="组件Link与Navlink"><a href="#组件Link与Navlink" class="headerlink" title="组件Link与Navlink"></a>组件Link与Navlink</h2><p>Navlink是Link的一个特定版本, 会在匹配上当前URL的时候会给已经渲染的元素添加样式参数<br><code>&lt;Link&gt;</code>属性<br>to: 目标路由<br>replace:当设置为 true 时，点击链接后将使用新地址替换掉访问历史记录里面的原地址。当设置为 false 时，点击链接后将在原有访问历史记录的基础上添加一个新的纪录。 默认为false</p>
+<p><code>&lt;Navlink&gt;</code>属性<br>activeClassName：激活时添加类名<br>activeStyle：激活时添加样式<br>exact：控制是否完全匹配<br>strict：匹配路由是否包/闭合<br>isActive: 添加额外函数用于判断是否激活</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://router.happyfe.com/">react router v4中文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bf6b45ce5bcc">React Router 4：痛过之后的豁然开朗</a></li>
+<li><a target="_blank" rel="noopener" href="https://css-tricks.com/react-router-4/">All About React Router 4</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/03/26/react-saga/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">react-saga</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/25/prototype/">
+                        <span class="hidden-mobile">JavaScript原型链与继承</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz","appKey":"16u5FmQt2ppD2oWWH6e1QgAy","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
