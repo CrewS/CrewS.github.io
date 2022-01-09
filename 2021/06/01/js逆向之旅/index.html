@@ -17,27 +17,20 @@
   <meta name="author" content="Crews">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言之前有尝试过破解极验的w值，其中有涉及到反混淆、加解密等知识，一步一步的得到最后的结果非常的有意思。最近有幸了解到《猿人学-爬虫刷题平台》网站，有许多有趣的js逆向题目。以下就是js逆向之旅（刷题之旅）。 js 混淆 - 源码乱码环境操作系统: mac语言: node编辑器：vscode 题目地址：http:&#x2F;&#x2F;match.yuanrenxue.com&#x2F;match&#x2F;1概述：看了下题目大概就是请">
+    <meta name="description" content="这是摘要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js逆向之旅（一）">
 <meta property="og:url" content="http://crews.github.io/blog/2021/06/01/js%E9%80%86%E5%90%91%E4%B9%8B%E6%97%85/index.html">
 <meta property="og:site_name" content="进击的前端工程狮">
-<meta property="og:description" content="前言之前有尝试过破解极验的w值，其中有涉及到反混淆、加解密等知识，一步一步的得到最后的结果非常的有意思。最近有幸了解到《猿人学-爬虫刷题平台》网站，有许多有趣的js逆向题目。以下就是js逆向之旅（刷题之旅）。 js 混淆 - 源码乱码环境操作系统: mac语言: node编辑器：vscode 题目地址：http:&#x2F;&#x2F;match.yuanrenxue.com&#x2F;match&#x2F;1概述：看了下题目大概就是请">
+<meta property="og:description" content="这是摘要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622562064467-35f5a77c-27af-4f4c-b84b-07ed75b87a0a.png#height=373&amp;id=rzlkY&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=746&amp;originWidth=1230&amp;originalType=binary&amp;size=119500&amp;status=done&amp;style=none&amp;width=615">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622562187800-876e4fe3-9913-4958-9a3f-da6934596b90.png#height=91&amp;id=VKqXW&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=182&amp;originWidth=1704&amp;originalType=binary&amp;size=41755&amp;status=done&amp;style=none&amp;width=852">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622562603808-1aa3f000-bbb2-4359-8ffe-7097abe041fc.png#height=431&amp;id=Cw4wk&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=862&amp;originWidth=908&amp;originalType=binary&amp;size=92346&amp;status=done&amp;style=none&amp;width=454">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622562874665-bedd3de8-b79c-424a-984f-dd26fbbafeff.png#height=95&amp;id=TxLRw&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=190&amp;originWidth=1142&amp;originalType=binary&amp;size=43356&amp;status=done&amp;style=none&amp;width=571">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622564194490-44c74078-140d-4068-9abe-985da6644164.png#height=127&amp;id=olfgr&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=254&amp;originWidth=1736&amp;originalType=binary&amp;size=66569&amp;status=done&amp;style=none&amp;width=868">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622564439686-8d6af3f2-c00e-4bc4-b62e-e68e23c09225.png#height=287&amp;id=N6B6s&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=574&amp;originWidth=1262&amp;originalType=binary&amp;size=102406&amp;status=done&amp;style=none&amp;width=631">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622564582018-04eff6fc-5188-4a8c-b9db-399ec38c214f.png#height=57&amp;id=BU0vp&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=114&amp;originWidth=1244&amp;originalType=binary&amp;size=16218&amp;status=done&amp;style=none&amp;width=622">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622565241837-2a29c26a-f984-4d29-a119-4b2fa21a5dfd.png#height=58&amp;id=xT3hH&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=116&amp;originWidth=804&amp;originalType=binary&amp;size=11896&amp;status=done&amp;style=none&amp;width=402">
+<meta property="og:image" content="http://crews.github.io/img/bg/banner.webp">
 <meta property="article:published_time" content="2021-06-01T15:12:48.000Z">
-<meta property="article:modified_time" content="2022-01-08T18:07:07.990Z">
+<meta property="article:modified_time" content="2022-01-09T04:01:19.409Z">
 <meta property="article:author" content="Crews">
 <meta property="article:tag" content="js逆向">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/151680/1622562064467-35f5a77c-27af-4f4c-b84b-07ed75b87a0a.png#height=373&amp;id=rzlkY&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=746&amp;originWidth=1230&amp;originalType=binary&amp;size=119500&amp;status=done&amp;style=none&amp;width=615">
+<meta name="twitter:image" content="http://crews.github.io/img/bg/banner.webp">
   
   
   <title>js逆向之旅（一） - 进击的前端工程狮</title>
