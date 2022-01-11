@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://crews.github.io/blog/2022/01/10/rollup2/</loc>
+    <loc>http://crews.github.io/blog/2022/01/11/rollup-plugin/</loc>
     
-    <lastmod>2022-01-10T16:52:52.876Z</lastmod>
+    <lastmod>2022-01-11T15:56:43.317Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://crews.github.io/blog/2022/01/09/rollup/</loc>
     
-    <lastmod>2022-01-09T09:02:17.187Z</lastmod>
+    <lastmod>2022-01-11T15:55:13.099Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://crews.github.io/blog/2022/01/10/rollup2/</loc>
+    
+    <lastmod>2022-01-11T13:34:16.929Z</lastmod>
     
   </url>
   

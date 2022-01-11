@@ -17,21 +17,21 @@
   <meta name="author" content="Crews">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。笔者想要通过web打包工具分析系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。 Rollup源码分析系列将会拆分成以下几部分  [x] Rollup的简单使用  [ ] Rollup的插件使用  [ ] Rollup的打包过程  [ ] Ro">
+    <meta name="description" content="前言当前分析的Rollup版本：2.63.0 打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。笔者想要通过web打包工具分析系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。 Rollup源码分析系列将会拆分成以下几部分  [x] Rollup的简单使用  [ ] Rollup的插件使用  [">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rollup原理分析（一）基础使用">
 <meta property="og:url" content="http://crews.github.io/blog/2022/01/09/rollup/index.html">
 <meta property="og:site_name" content="进击的前端工程狮">
-<meta property="og:description" content="前言打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。笔者想要通过web打包工具分析系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。 Rollup源码分析系列将会拆分成以下几部分  [x] Rollup的简单使用  [ ] Rollup的插件使用  [ ] Rollup的打包过程  [ ] Ro">
+<meta property="og:description" content="前言当前分析的Rollup版本：2.63.0 打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。笔者想要通过web打包工具分析系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。 Rollup源码分析系列将会拆分成以下几部分  [x] Rollup的简单使用  [ ] Rollup的插件使用  [">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://crews.github.io/img/post/parcel.gif">
+<meta property="og:image" content="http://crews.github.io/img/post/rollup.jpeg">
 <meta property="article:published_time" content="2022-01-09T06:22:08.000Z">
-<meta property="article:modified_time" content="2022-01-09T09:02:17.187Z">
+<meta property="article:modified_time" content="2022-01-11T15:55:13.099Z">
 <meta property="article:author" content="Crews">
 <meta property="article:tag" content="rollup">
 <meta property="article:tag" content="web打包工具系列">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://crews.github.io/img/post/parcel.gif">
+<meta name="twitter:image" content="http://crews.github.io/img/post/rollup.jpeg">
   
   
   <title>Rollup原理分析（一）基础使用 - 进击的前端工程狮</title>
@@ -242,7 +242,8 @@
             <h1 style="display: none">Rollup原理分析（一）基础使用</h1>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。<br>笔者想要通过<code>web打包工具分析</code>系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。</p>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当前分析的Rollup版本：<code>2.63.0</code></p>
+<p>打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。<br>笔者想要通过<code>web打包工具分析</code>系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。</p>
 <p>Rollup源码分析系列将会拆分成以下几部分</p>
 <ul>
 <li><p>[x] Rollup的简单使用</p>
