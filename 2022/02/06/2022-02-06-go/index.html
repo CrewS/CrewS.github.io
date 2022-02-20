@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Crews">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言笔者是做前端开发工作的，对Js、Nodejs比较熟悉。对其他技术不熟悉但是非常愿意接触，前端构建的工具链中也逐步有其他语言的接入，比如esbuild（GO语言）, swc（RUST）。率性就学习下GO语言，拓展自己的技术宽度。 GO 语言相信大家网上随便搜一下都能找到介绍GO语言的，这里我就不重复说了。  Go 语言具有很强的表达能力，它简洁、清晰而高效。得益于其并发机制， 用它编写的程序能够">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO 语言初体验">
+<meta property="og:url" content="http://crews.github.io/blog/2022/02/06/2022-02-06-go/index.html">
+<meta property="og:site_name" content="进击的前端工程狮">
+<meta property="og:description" content="前言笔者是做前端开发工作的，对Js、Nodejs比较熟悉。对其他技术不熟悉但是非常愿意接触，前端构建的工具链中也逐步有其他语言的接入，比如esbuild（GO语言）, swc（RUST）。率性就学习下GO语言，拓展自己的技术宽度。 GO 语言相信大家网上随便搜一下都能找到介绍GO语言的，这里我就不重复说了。  Go 语言具有很强的表达能力，它简洁、清晰而高效。得益于其并发机制， 用它编写的程序能够">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://crews.github.io/img/post/go.jpeg">
+<meta property="article:published_time" content="2022-02-06T08:00:08.000Z">
+<meta property="article:modified_time" content="2022-02-20T13:05:27.268Z">
+<meta property="article:author" content="Crews">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://crews.github.io/img/post/go.jpeg">
+  
+  
+  <title>GO 语言初体验 - 进击的前端工程狮</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>程序与浪漫</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="GO 语言初体验">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-06 16:00" pubdate>
+        2022年2月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      72 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">GO 语言初体验</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>笔者是做前端开发工作的，对Js、Nodejs比较熟悉。对其他技术不熟悉但是非常愿意接触，前端构建的工具链中也逐步有其他语言的接入，比如esbuild（GO语言）, swc（RUST）。率性就学习下GO语言，拓展自己的技术宽度。</p>
+<h2 id="GO-语言"><a href="#GO-语言" class="headerlink" title="GO 语言"></a>GO 语言</h2><p>相信大家网上随便搜一下都能找到介绍GO语言的，这里我就不重复说了。</p>
+<blockquote>
+<p>Go 语言具有很强的表达能力，它简洁、清晰而高效。得益于其并发机制， 用它编写的程序能够非常有效地利用多核与联网的计算机，其新颖的类型系统则使程序结构变得灵活而模块化。 Go 代码编译成机器码不仅非常迅速，还具有方便的垃圾收集机制和强大的运行时反射机制。 它是一个快速的、静态类型的编译型语言，感觉却像动态类型的解释型语言。</p>
+</blockquote>
+<p>简单总结一下就是：<strong>易学习</strong>、<strong>高性能</strong>、<strong>跨平台</strong></p>
+<h2 id="GO-语言之旅"><a href="#GO-语言之旅" class="headerlink" title="GO 语言之旅"></a>GO 语言之旅</h2><p>笔者是通过 <a target="_blank" rel="noopener" href="https://tour.go-zh.org/welcome/1">《GO语言之旅》</a>这个教程初步学习的，大家也可以通过这个简单的线上课程去了解GO语言的一些基本特性和使用方式。</p>
+<h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><p>go 语言和javascript相似也是有包管理的机制，不过与npm包不一样，不需要发布，直接通过线上的地址导入<br>举个例子，下面的例子就是使用第三方包log包去打印日志。 <code>github.com/sirupsen/logrus</code> 则是导入的地址<br><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> log <span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	log.Infof(<span class="hljs-string">&quot;Hello world！&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><br>现在笔者接触的go包管理一般用的是go module管理,go.mod配置文件是下面这样的结构。<br>这两行和 npm package.json 的 name 字段的功能很类似。定义了模块名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">// go.mod<br>module github.com/sirupsen/logrus<br><br>go 1.12<br></code></pre></td></tr></table></figure>
+<p>go 模块管理在使用的时候因为不熟悉还踩了不少的坑，比如不能互相导入会导致编译器报错。如果想了解更多的go module的学习可以阅读<a target="_blank" rel="noopener" href="https://colobu.com/2021/06/28/dive-into-go-module-1/">深入Go Module之go.mod文件解析</a></p>
+<h3 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h3><p>直接通过练习题的讲解，可以更快速的让大家了解语言特性，其他想要学习了解GO语言的同学也可以自己先学习下GO语言课程里做一遍练习题，没有思路再通过笔者的注释学习。</p>
+<h4 id="练习：循环与函数"><a href="#练习：循环与函数" class="headerlink" title="练习：循环与函数"></a>练习：循环与函数</h4><p>题目（一）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/flowcontrol/8">练习：循环与函数</a><br>利用循环计算出近似值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;math&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sqrt</span><span class="hljs-params">(x <span class="hljs-keyword">float64</span>)</span> <span class="hljs-title">float64</span></span> &#123;<br>    z := <span class="hljs-number">1.0</span><span class="hljs-comment">// 定义一个初始值并对它初始化</span><br>    temp := <span class="hljs-number">0.0</span><span class="hljs-comment">//  临时变量，作为记录z 上次的值</span><br>    <span class="hljs-comment">// for 循环</span><br>    <span class="hljs-keyword">for</span> &#123;  <br>        z = z - (z*z-x)/(<span class="hljs-number">2</span>*z)<span class="hljs-comment">// 计算出最新的z值</span><br>        fmt.Println(z)<br>        <span class="hljs-keyword">if</span> math.Abs(z-temp) &lt; <span class="hljs-number">0.000000000000001</span> &#123;<br>            <span class="hljs-keyword">break</span><span class="hljs-comment">//  当值停止改变（或改变非常小）的时候退出循环</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            temp = z<span class="hljs-comment">//　赋值最终的结果</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> z<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;猜测：&quot;</span>, Sqrt(<span class="hljs-number">2</span>))<br>    fmt.Println(<span class="hljs-string">&quot;math.Sqrt(２):&quot;</span>, math.Sqrt(<span class="hljs-number">2</span>))<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="练习：切片"><a href="#练习：切片" class="headerlink" title="练习：切片"></a>练习：切片</h4><p>题目（二）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/moretypes/18">练习：切片</a><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;golang.org/x/tour/pic&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Pic</span><span class="hljs-params">(dx, dy <span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">uint8</span></span> &#123;<br>    a := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">uint8</span>,dy)  <span class="hljs-comment">//外层切片</span><br>    <span class="hljs-keyword">for</span> x := <span class="hljs-keyword">range</span> a&#123;<br>        b := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">uint8</span>,dx)  <span class="hljs-comment">//里层切片</span><br>        <span class="hljs-keyword">for</span> y := <span class="hljs-keyword">range</span> b&#123;<br>            b[y] = <span class="hljs-keyword">uint8</span>(x*y - <span class="hljs-number">1</span>)  <span class="hljs-comment">//给里层切片里的每一个元素赋值。其中x*y可以替换成别的函数 形成不同图形</span><br>            <span class="hljs-comment">// b[y] = uint8(x^y) </span><br>        &#125;<br>        a[x] = b  <span class="hljs-comment">//给外层切片里的每一个元素赋值</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> a<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    pic.Show(Pic)<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h4 id="练习：映射"><a href="#练习：映射" class="headerlink" title="练习：映射"></a>练习：映射</h4><p>题目（三）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/moretypes/23">练习：映射</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;golang.org/x/tour/wc&quot;</span><br>    <span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">WordCount</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">map</span>[<span class="hljs-title">string</span>]<span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)  <span class="hljs-comment">// 创建映射</span><br>    c := strings.Fields(s)  <span class="hljs-comment">// 以[]string形式返回</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> c &#123;  <span class="hljs-comment">//每出现相同的单词（字符串）</span><br>        m[v] += <span class="hljs-number">1</span>  <span class="hljs-comment">//出现次数就 + 1         </span><br>    &#125;<br>    <span class="hljs-keyword">return</span> m<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    wc.Test(WordCount)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="练习：斐波纳契闭包"><a href="#练习：斐波纳契闭包" class="headerlink" title="练习：斐波纳契闭包"></a>练习：斐波纳契闭包</h4><p>题目（四）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/moretypes/26">练习：斐波纳契闭包</a></p>
+<p>和js有点相似，函数使用外部的变量，使变量变成必成函数闭包变量， 变量拥有“临时存储”功能<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-comment">// 返回一个“返回int的函数”</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">()</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>	a, b:= <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>		temp := a<br>		a, b = b, (a+b)<br>		<span class="hljs-keyword">return</span> temp<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	f := fibonacci()<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		fmt.Println(f())<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></p>
+<h4 id="练习：Stringer"><a href="#练习：Stringer" class="headerlink" title="练习：Stringer"></a>练习：Stringer</h4><p>题目（五）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/methods/18">练习：Stringer</a></p>
+<p>对于fmt的Printf方法会调用类型关联的string方法，在前面类型的学习中可以知道 对于入参参数只有1个且为该类型的函数可以通过 typeName.xxx 去调用函数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> IPAddr [<span class="hljs-number">4</span>]<span class="hljs-keyword">byte</span><br><br><span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Add a &quot;String() string&quot; method to IPAddr.</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v IPAddr)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span>&#123;  <br>    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%v.%v.%v.%v&quot;</span>, v[<span class="hljs-number">0</span>],v[<span class="hljs-number">1</span>],v[<span class="hljs-number">2</span>],v[<span class="hljs-number">3</span>])  <br>&#125;  <br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    hosts := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]IPAddr&#123;<br>        <span class="hljs-string">&quot;loopback&quot;</span>:  &#123;<span class="hljs-number">127</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;,<br>        <span class="hljs-string">&quot;googleDNS&quot;</span>: &#123;<span class="hljs-number">8</span>, <span class="hljs-number">8</span>, <span class="hljs-number">8</span>, <span class="hljs-number">8</span>&#125;,<br>    &#125;<br>    <span class="hljs-keyword">for</span> name, ip := <span class="hljs-keyword">range</span> hosts &#123;<br>        fmt.Printf(<span class="hljs-string">&quot;%v: %v\n&quot;</span>, name, ip)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="练习：错误"><a href="#练习：错误" class="headerlink" title="练习：错误"></a>练习：错误</h4><p>题目（六）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/methods/20">练习：错误</a><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-comment">// 待补充 为啥fmt.Sprintf 中e 直接写入会无限死循环</span><br><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>)<br><span class="hljs-comment">// 定义类型</span><br><span class="hljs-keyword">type</span> ErrNegativeSqrt <span class="hljs-keyword">float64</span><br><br><span class="hljs-comment">// 重写Error()</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e ErrNegativeSqrt)</span> <span class="hljs-title">Error</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;<br>	<span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;cannot Sqrt negative number:  %v&quot;</span>, <span class="hljs-keyword">float64</span>(e))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sqrt</span><span class="hljs-params">(x <span class="hljs-keyword">float64</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">float64</span>, error)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> x &lt; <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>, ErrNegativeSqrt(x)<br>	&#125;<br>	<span class="hljs-keyword">return</span> math.Sqrt(x), <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//这里只是简单的打印</span><br>	fmt.Println(Sqrt(<span class="hljs-number">2</span>))<br>	fmt.Println(Sqrt(<span class="hljs-number">-2</span>))<br>&#125;<br><br></code></pre></td></tr></table></figure></p>
+<h4 id="练习：Reader"><a href="#练习：Reader" class="headerlink" title="练习：Reader"></a>练习：Reader</h4><p>题目（七）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/methods/22">练习：Reader</a><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;golang.org/x/tour/reader&quot;</span><br><br>)<br><br><span class="hljs-keyword">type</span> MyReader <span class="hljs-keyword">struct</span>&#123;&#125;<br><br><span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Add a Read([]byte) (int, error) method to MyReader.</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(r MyReader)</span> <span class="hljs-title">Read</span><span class="hljs-params">(b []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, error)</span></span> &#123;<br>    <span class="hljs-comment">// 赋值并返回</span><br>    b[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;A&#x27;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    reader.Validate(MyReader&#123;&#125;)<br>&#125;<br><br></code></pre></td></tr></table></figure></p>
+<h4 id="练习：rot13Reader"><a href="#练习：rot13Reader" class="headerlink" title="练习：rot13Reader"></a>练习：rot13Reader</h4><p>题目（八）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/methods/23">练习：rot13Reader</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;io&quot;</span><br>    <span class="hljs-string">&quot;os&quot;</span><br>    <span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> rot13Reader <span class="hljs-keyword">struct</span> &#123;<br>    r io.Reader<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(rot rot13Reader)</span> <span class="hljs-title">Read</span><span class="hljs-params">(p []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, error)</span></span> &#123;<br>    <span class="hljs-comment">// 读取字符串数组</span><br>    n, err := rot.r.Read(p)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        p[i] = rot13(p[i])<br>    &#125;<br>    <span class="hljs-keyword">return</span> n, err<br><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">rot13</span><span class="hljs-params">(b <span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">byte</span></span> &#123;<br>    <span class="hljs-keyword">if</span> (b &gt;= <span class="hljs-string">&#x27;A&#x27;</span> &amp;&amp; b &lt;= <span class="hljs-string">&#x27;M&#x27;</span>) || (b &gt;= <span class="hljs-string">&#x27;a&#x27;</span> &amp;&amp; b &lt;= <span class="hljs-string">&#x27;m&#x27;</span>) &#123;<br>        b += <span class="hljs-number">13</span><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b &gt;= <span class="hljs-string">&#x27;N&#x27;</span> &amp;&amp; b &lt;= <span class="hljs-string">&#x27;Z&#x27;</span>) || (b &gt;= <span class="hljs-string">&#x27;n&#x27;</span> &amp;&amp; b &lt;= <span class="hljs-string">&#x27;z&#x27;</span>) &#123;<br>        b -= <span class="hljs-number">13</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    s := strings.NewReader(<span class="hljs-string">&quot;Lbh penpxrq gur pbqr!&quot;</span>)<br>    r := rot13Reader&#123;s&#125;<br>    io.Copy(os.Stdout, &amp;r)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="练习：图像"><a href="#练习：图像" class="headerlink" title="练习：图像"></a>练习：图像</h4><p>题目（九）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/methods/25">练习：图像</a></p>
+<p>对类型定义不同的方法，这里有点像类的成员函数<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;golang.org/x/tour/pic&quot;</span><br>    <span class="hljs-string">&quot;image/color&quot;</span><br>    <span class="hljs-string">&quot;image&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Image <span class="hljs-keyword">struct</span>&#123;&#125;  <span class="hljs-comment">//新建一个Image结构体</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i Image)</span> <span class="hljs-title">ColorModel</span><span class="hljs-params">()</span> <span class="hljs-title">color</span>.<span class="hljs-title">Model</span></span>&#123;  <span class="hljs-comment">//实现Image包中颜色模式的方法</span><br>    <span class="hljs-keyword">return</span> color.RGBAModel<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i Image)</span> <span class="hljs-title">Bounds</span><span class="hljs-params">()</span> <span class="hljs-title">image</span>.<span class="hljs-title">Rectangle</span></span>&#123;  <span class="hljs-comment">//实现Image包中生成图片边界的方法</span><br>    <span class="hljs-keyword">return</span> image.Rect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">200</span>,<span class="hljs-number">200</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i Image)</span> <span class="hljs-title">At</span><span class="hljs-params">(x,y <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">color</span>.<span class="hljs-title">Color</span></span>&#123;  <span class="hljs-comment">//实现Image包中生成图像某个点的方法</span><br>    <span class="hljs-keyword">return</span> color.RGBA&#123;<span class="hljs-keyword">uint8</span>(x),<span class="hljs-keyword">uint8</span>(y),<span class="hljs-keyword">uint8</span>(<span class="hljs-number">255</span>),<span class="hljs-keyword">uint8</span>(<span class="hljs-number">255</span>)&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    m := Image&#123;&#125;<br>    pic.ShowImage(m)  <span class="hljs-comment">//调用</span><br>&#125;<br><br></code></pre></td></tr></table></figure></p>
+<h4 id="练习：等价二叉查找树"><a href="#练习：等价二叉查找树" class="headerlink" title="练习：等价二叉查找树"></a>练习：等价二叉查找树</h4><p>题目（九）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/concurrency/8">练习：等价二叉查找树</a></p>
+<p>这个练习题主要让我们了解如何使用信道实现函数运行时的通信问题</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;golang.org/x/tour/tree&quot;</span><br><span class="hljs-string">&quot;fmt&quot;</span><br>)<br><span class="hljs-comment">//  发送value，结束后关闭channel</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Walk</span><span class="hljs-params">(t *tree.Tree, ch <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>&#123;<br>    sendValue(t,ch)<br>    <span class="hljs-built_in">close</span>(ch)<br>&#125;<br><span class="hljs-comment">//  递归向channel传值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sendValue</span><span class="hljs-params">(t *tree.Tree, ch <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span>&#123;<br>    <span class="hljs-keyword">if</span> t != <span class="hljs-literal">nil</span> &#123;<br>        sendValue(t.Left, ch)<br>        ch &lt;- t.Value<br>        sendValue(t.Right, ch)<br>   &#125;<br>&#125;<br><br><span class="hljs-comment">// 使用写好的Walk函数来确定两个tree对象  是否一样 原理还是判断value值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Same</span><span class="hljs-params">(t1, t2 *tree.Tree)</span> <span class="hljs-title">bool</span></span> &#123;<br>       ch1 := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>       ch2 := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>       <span class="hljs-keyword">go</span> Walk(t1,ch1)<br>       <span class="hljs-keyword">go</span> Walk(t2,ch2)<br>       <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> ch1 &#123;   <span class="hljs-comment">// ch1 关闭后   for循环自动跳出</span><br>               <span class="hljs-keyword">if</span> i != &lt;- ch2 &#123;<br>                      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>               &#125;<br>       &#125;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br> <br>    <span class="hljs-comment">// 打印 tree.New(1)的值</span><br>    <span class="hljs-keyword">var</span> ch = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)<br>    <span class="hljs-keyword">go</span> Walk(tree.New(<span class="hljs-number">1</span>),ch)<br>    <span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> ch &#123;<br>          fmt.Println(v)<br>    &#125;<br>    <br>    <span class="hljs-comment">//  比较两个tree的value值是否相等</span><br>    fmt.Println(Same(tree.New(<span class="hljs-number">1</span>), tree.New(<span class="hljs-number">1</span>)))<br>    fmt.Println(Same(tree.New(<span class="hljs-number">1</span>), tree.New(<span class="hljs-number">2</span>)))<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="练习：Web-爬虫"><a href="#练习：Web-爬虫" class="headerlink" title="练习：Web 爬虫"></a>练习：Web 爬虫</h4><p>题目（十）<a target="_blank" rel="noopener" href="https://tour.go-zh.org/concurrency/10">练习：Web 爬虫</a><br>这个练习题是练习对信道和锁的使用</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Fetcher <span class="hljs-keyword">interface</span> &#123;<br>	<span class="hljs-comment">// Fetch 返回 URL 的 body 内容，并且将在这个页面上找到的 URL 放到一个 slice 中。</span><br>	Fetch(url <span class="hljs-keyword">string</span>) (body <span class="hljs-keyword">string</span>, urls []<span class="hljs-keyword">string</span>, err error)<br>&#125;<br><br><span class="hljs-keyword">var</span> (<br>	<span class="hljs-comment">//  map  存放爬取的url</span><br>	m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)<br>	<span class="hljs-comment">// 互斥锁</span><br>	l sync.Mutex<br>	<span class="hljs-comment">//   群组等待     当添加的任务没有完成时（done（））， wait（） 会一直等待    三个方法   Add()  Done()  Wait()</span><br>	i sync.WaitGroup<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	i.Add(<span class="hljs-number">1</span>)<br>	Crawl(<span class="hljs-string">&quot;http://golang.org/&quot;</span>, <span class="hljs-number">4</span>, fetcher)<br>	<br>	i.Wait()<span class="hljs-comment">// 会一直等待直到子线程任务结束	</span><br>	<br>	<span class="hljs-keyword">for</span> k, _ := <span class="hljs-keyword">range</span> m &#123;<br>		fmt.Println(k)<br>	&#125;	<br>	fmt.Println(<span class="hljs-string">&quot;over&quot;</span>)<br>&#125;<br><br><span class="hljs-comment">// Crawl 使用 fetcher 从某个 URL 开始递归的爬取页面，直到达到最大深度。</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Crawl</span><span class="hljs-params">(url <span class="hljs-keyword">string</span>, depth <span class="hljs-keyword">int</span>, fetcher Fetcher)</span></span> &#123;<br><br>	<span class="hljs-keyword">defer</span> i.Done() <span class="hljs-comment">//  和add相对应</span><br>	<span class="hljs-keyword">if</span> depth &lt;= <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	_, urls, err := fetcher.Fetch(url)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	<span class="hljs-comment">//	fmt.Println(err)</span><br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-comment">// 存入数据  需要同步锁  因为这是在子线程中</span><br>	l.Lock()<br>	<span class="hljs-keyword">if</span> m[url] == <span class="hljs-number">0</span> &#123; <span class="hljs-comment">//  还未爬取过</span><br>		m[url]++ <span class="hljs-comment">// 存入爬取的url  改变对应的标示</span><br>		depth--<br>		<span class="hljs-comment">//		fmt.Printf(&quot;found: %s %q\n&quot;, url, body)</span><br>		<span class="hljs-keyword">for</span> _, u := <span class="hljs-keyword">range</span> urls &#123;<br>			i.Add(<span class="hljs-number">1</span>)<br>			<span class="hljs-keyword">go</span> Crawl(u, depth, fetcher) <span class="hljs-comment">// 继续爬取</span><br>		&#125;<br>	&#125;<br>	l.Unlock()<br><br>&#125;<br><br><span class="hljs-comment">// fakeFetcher 是返回若干结果的 Fetcher。</span><br><span class="hljs-keyword">type</span> fakeFetcher <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*fakeResult<br><br><span class="hljs-keyword">type</span> fakeResult <span class="hljs-keyword">struct</span> &#123;<br>	body <span class="hljs-keyword">string</span><br>	urls []<span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(f fakeFetcher)</span> <span class="hljs-title">Fetch</span><span class="hljs-params">(url <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">string</span>, []<span class="hljs-keyword">string</span>, error)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> res, ok := f[url]; ok &#123;<br>		<span class="hljs-keyword">return</span> res.body, res.urls, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-literal">nil</span>, fmt.Errorf(<span class="hljs-string">&quot;not found: %s&quot;</span>, url)<br>&#125;<br><br><span class="hljs-comment">// fetcher 是填充后的 fakeFetcher。</span><br><span class="hljs-keyword">var</span> fetcher = fakeFetcher&#123;<br>	<span class="hljs-string">&quot;http://golang.org/&quot;</span>: &amp;fakeResult&#123;<br>		<span class="hljs-string">&quot;The Go Programming Language&quot;</span>,<br>		[]<span class="hljs-keyword">string</span>&#123;<br>			<span class="hljs-string">&quot;http://golang.org/pkg/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/cmd/&quot;</span>,<br>		&#125;,<br>	&#125;,<br>	<span class="hljs-string">&quot;http://golang.org/pkg/&quot;</span>: &amp;fakeResult&#123;<br>		<span class="hljs-string">&quot;Packages&quot;</span>,<br>		[]<span class="hljs-keyword">string</span>&#123;<br>			<span class="hljs-string">&quot;http://golang.org/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/cmd/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/pkg/fmt/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/pkg/os/&quot;</span>,<br>		&#125;,<br>	&#125;,<br>	<span class="hljs-string">&quot;http://golang.org/pkg/fmt/&quot;</span>: &amp;fakeResult&#123;<br>		<span class="hljs-string">&quot;Package fmt&quot;</span>,<br>		[]<span class="hljs-keyword">string</span>&#123;<br>			<span class="hljs-string">&quot;http://golang.org/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/pkg/&quot;</span>,<br>		&#125;,<br>	&#125;,<br>	<span class="hljs-string">&quot;http://golang.org/pkg/os/&quot;</span>: &amp;fakeResult&#123;<br>		<span class="hljs-string">&quot;Package os&quot;</span>,<br>		[]<span class="hljs-keyword">string</span>&#123;<br>			<span class="hljs-string">&quot;http://golang.org/&quot;</span>,<br>			<span class="hljs-string">&quot;http://golang.org/pkg/&quot;</span>,<br>		&#125;,<br>	&#125;,<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>通过该课程学习和这些练习题，想必大家都能过了解GO语言怎么写了。在学习GO语言的过程，和前端js编码最大的不同是在编码之前对自己想要的东西必须认知比较的清晰，在后续使用都是类型推断辅助编码。还有一个特定就是信道、go程、锁的了解知道了为啥go语言能够拥有高性能。最后自己也尝试编写一个开源项目去锻炼自己的go语言编程能力</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/go/">go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/11/rollup-plugin/">
+                        <span class="hidden-mobile">Rollup原理分析（三）如何编写一个插件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz","appKey":"16u5FmQt2ppD2oWWH6e1QgAy","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+    <!-- cnzz Analytics Icon -->
+    <span id="cnzz_stat_icon_1280774100" style="display: none"></span>
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <!-- cnzz Analytics -->
+    <script defer src="//s4.cnzz.com/z_stat.php?id=1280774100&show=pic"
+            type="text/javascript"></script>
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
