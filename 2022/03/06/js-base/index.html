@@ -17,24 +17,24 @@
   <meta name="author" content="Crews">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言这几年随着爬虫与反爬的对抗强提升，web端的js被加强了防护。想对js解密也没有以前那么简单，控制台打开，参数一看就可以开始请求接口。所以对爬虫也有一定的技术要求。这里将整理js逆向的一些方法论和技术。 总览自己的一些观点： 对于web端的反爬只要抓住请求是最后的“出口“就能顺着执行思路往回逆向。接口请求是客户端与server的交互，通过一定的参数让服务器“鉴权”通过，认可这个是一个“合法”客">
+    <meta name="description" content="前言在逆向一些网站的时候，扣出来JS代码，能运行但是不知道为啥能这样跑。相信很多小伙伴有这样的疑惑，本篇文章主要讲解JavaScript里几个基础的知识点，帮助大家更好理解js代码。下面是主要内容，已经了解的同学可以不用看啦~  JavaScript原型链 函数作用域  JavaScript 原型链直接讲述概念可能会特别的抽象，这里举个例子JavaScript原型的使用场景 12345678910">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工欲善其事必先利其器——js逆向基础知识">
-<meta property="og:url" content="http://crews.github.io/blog/2022/02/28/js-hook/index.html">
+<meta property="og:title" content="JS基础知识补给包">
+<meta property="og:url" content="http://crews.github.io/blog/2022/03/06/js-base/index.html">
 <meta property="og:site_name" content="进击的前端工程狮">
-<meta property="og:description" content="前言这几年随着爬虫与反爬的对抗强提升，web端的js被加强了防护。想对js解密也没有以前那么简单，控制台打开，参数一看就可以开始请求接口。所以对爬虫也有一定的技术要求。这里将整理js逆向的一些方法论和技术。 总览自己的一些观点： 对于web端的反爬只要抓住请求是最后的“出口“就能顺着执行思路往回逆向。接口请求是客户端与server的交互，通过一定的参数让服务器“鉴权”通过，认可这个是一个“合法”客">
+<meta property="og:description" content="前言在逆向一些网站的时候，扣出来JS代码，能运行但是不知道为啥能这样跑。相信很多小伙伴有这样的疑惑，本篇文章主要讲解JavaScript里几个基础的知识点，帮助大家更好理解js代码。下面是主要内容，已经了解的同学可以不用看啦~  JavaScript原型链 函数作用域  JavaScript 原型链直接讲述概念可能会特别的抽象，这里举个例子JavaScript原型的使用场景 12345678910">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://crews.github.io/img/post/js-hook.png">
-<meta property="article:published_time" content="2022-02-28T13:36:36.000Z">
-<meta property="article:modified_time" content="2022-03-06T16:17:33.139Z">
+<meta property="og:image" content="http://crews.github.io/img/post/js-base.png">
+<meta property="article:published_time" content="2022-03-06T03:00:36.000Z">
+<meta property="article:modified_time" content="2022-03-06T16:23:33.779Z">
 <meta property="article:author" content="Crews">
 <meta property="article:tag" content="js逆向">
 <meta property="article:tag" content="爬虫">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://crews.github.io/img/post/js-hook.png">
+<meta name="twitter:image" content="http://crews.github.io/img/post/js-base.png">
   
   
-  <title>工欲善其事必先利其器——js逆向基础知识 - 进击的前端工程狮</title>
+  <title>JS基础知识补给包 - 进击的前端工程狮</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -180,7 +180,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="工欲善其事必先利其器——js逆向基础知识">
+            <span class="h2" id="subtitle" title="JS基础知识补给包">
               
             </span>
 
@@ -190,8 +190,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-28 21:36" pubdate>
-        2022年2月28日 晚上
+      <time datetime="2022-03-06 11:00" pubdate>
+        2022年3月6日 上午
       </time>
     </span>
   
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.5k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20 分钟
+      21 分钟
     </span>
   
 
@@ -239,48 +239,65 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">工欲善其事必先利其器——js逆向基础知识</h1>
+            <h1 style="display: none">JS基础知识补给包</h1>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几年随着爬虫与反爬的对抗强提升，web端的js被加强了防护。想对js解密也没有以前那么简单，控制台打开，参数一看就可以开始请求接口。<br>所以对爬虫也有一定的技术要求。这里将整理js逆向的一些方法论和技术。</p>
-<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>自己的一些观点： 对于web端的反爬只要抓住请求是最后的“出口“就能顺着执行思路往回逆向。接口请求是客户端与server的交互，通过一定的参数让服务器“鉴权”通过，认可这个是一个“合法”客户端发出的请求，同时返回信息。反爬的侧重点就到了对接口请求过程的防护了。</p>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在逆向一些网站的时候，扣出来JS代码，能运行但是不知道为啥能这样跑。相信很多小伙伴有这样的疑惑，本篇文章主要讲解JavaScript里几个基础的知识点，帮助大家更好理解js代码。<br>下面是<strong>主要内容</strong>，已经了解的同学可以不用看啦~</p>
 <ul>
-<li>对参数加密</li>
-<li>对协议的特殊处理</li>
-<li>对返回的加密<br>其中加密的手段又通过“混淆”，“重新编码”，“jsvmp”等方式隐藏真正的加密方式<br>payload里也会附加 设备指纹、行为轨迹、等等的信息<br>对于“爬虫”来说，就需要抽丝剥茧，把这些信息获取到进而伪装成正常的用户发起请求<br>那对围绕这个“抽丝剥茧”的事情，就有很多工具方法，通过学习这些基础的知识，可以有效提升逆向效率</li>
+<li>JavaScript原型链</li>
+<li>函数作用域</li>
 </ul>
-<h2 id="JS-hook"><a href="#JS-hook" class="headerlink" title="JS hook"></a>JS hook</h2><p>JS hook，js里经常用到的技术之一，通过js hook我们可以监听到一个数据的变化和使用的过程。<br>JS hook主要利用了浏览的API<br>1、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty()</a> 不兼容IE8以下<br>2、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> IE 不兼容<br>本质上都是对变量进行监听，可以对对象添加2个方法，get、set方法，get方法在对象使用的时候就会触发，set 是在对对象继续赋值的时候会触发。<br>使用场景之一：document.cookie的监听<br>有一些网站就是加密参数写入cookie中，然后随着请求一起发送到服务器进行校验<br>对于cookie的变更，js hook可以很快找到赋值的位置，再从堆栈中找到参数加密的位置<br><figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs js">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-meta">  &#x27;use strict&#x27;</span>;<br>  <span class="hljs-keyword">var</span> cookieTemp = <span class="hljs-string">&#x27;&#x27;</span>;<br>  <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">window</span>.byted_acrawler, <span class="hljs-string">&#x27;sign&#x27;</span>, &#123;<br>    <span class="hljs-attr">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>&#123;<br>      <span class="hljs-comment">// 通过判断含有特定的cookie 再断点</span><br>      <span class="hljs-comment">// if (val.indexOf(&#x27;name&#x27;) != -1) &#123;</span><br>			<span class="hljs-comment">// &#125;</span><br>			<span class="hljs-keyword">debugger</span>;<br>      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Hook捕获到cookie设置-&gt;&#x27;</span>, val);<br>      cookieTemp = val;<br>      <span class="hljs-keyword">return</span> val;<br>    &#125;,<br>    <span class="hljs-attr">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>      <span class="hljs-keyword">return</span> cookieTemp;<br>    &#125;,<br>  &#125;);<br>&#125;)();<br></code></pre></td></tr></table></figure><br>利用Proxy监听数据的改变也一样<br>下面是一个基础的proxy函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> proxy = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>) </span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, &#123;<br>		<span class="hljs-attr">set</span>: <span class="hljs-function">(<span class="hljs-params">target, prop, val</span>) =&gt;</span> &#123;<br>			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;SET&gt;&gt;&gt;&gt;&quot;</span>, prop, prop, val)<br>			<span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.set(...arguments);<br>		&#125;,<br>		<span class="hljs-attr">get</span>: <span class="hljs-function">(<span class="hljs-params">target, prop, r</span>) =&gt;</span> &#123;<br>			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;GET&gt;&gt;&gt;&gt;&quot;</span>, prop, prop, target[prop])<br>			<span class="hljs-keyword">return</span> target[prop]<br>		&#125;,<br>	&#125;)<br>&#125; <br><span class="hljs-comment">// 假设要对window进行监听</span><br><span class="hljs-built_in">window</span> = proxy(<span class="hljs-built_in">window</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="利用Chrome开发者工具与vscode（IDE）"><a href="#利用Chrome开发者工具与vscode（IDE）" class="headerlink" title="利用Chrome开发者工具与vscode（IDE）"></a>利用Chrome开发者工具与vscode（IDE）</h2><p>利用浏览器开发者工具或者vscode调试界面对js代码调试，能够方便我们理解加密逻辑<br>这里介绍几个方法和技巧</p>
-<h4 id="Chrome浏览器断点"><a href="#Chrome浏览器断点" class="headerlink" title="Chrome浏览器断点"></a>Chrome浏览器断点</h4><p>先配置Chrome浏览器的开发者工具的语言环境</p>
-<p>F12打开控制台，最上面的工具栏右侧有个齿轮，点击可以找到preference=&gt; language =&gt; 设置中文</p>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/%E6%88%AA%E5%B1%8F2022-03-01%20%E4%B8%8B%E5%8D%8810.31.24.png" srcset="/img/loading.gif" lazyload alt="截屏2022-03-01 下午10.31.24"></p>
-<p>这时候就变成中文的控制面板，对于不熟悉Chrome 开发中工具且英文不好的同学来说是比较好的帮助</p>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220301223526150.png" srcset="/img/loading.gif" lazyload alt="image-20220301223526150"></p>
-<h5 id="Chrome浏览打断点的几个技巧"><a href="#Chrome浏览打断点的几个技巧" class="headerlink" title="Chrome浏览打断点的几个技巧"></a>Chrome浏览打断点的几个技巧</h5><p><strong>添加断点</strong> </p>
-<p>顾名思义就是加断点，这个没有什么好讲的</p>
-<p><strong>添加条件断点</strong> </p>
-<p>就是可以根据上下文环境变量加入一些判断，达到条件就会触发断，可以简单的理解为下面的代码插入该行</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(condition) &#123;<br>	<span class="hljs-keyword">debugger</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>添加日志点</strong></p>
-<p>添加日志输出点则是每运行到该行进行输出信息，用的场景比较多是研究加密算法运算过程某些值的变化规律</p>
-<p><strong>一律不在此处断点</strong></p>
-<p>这个功能则是对一些简单的反爬debugger进行忽略</p>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/%E6%88%AA%E5%B1%8F2022-03-01%20%E4%B8%8B%E5%8D%8810.36.12.png" srcset="/img/loading.gif" lazyload alt="截屏2022-03-01 下午10.36.12"></p>
-<h5 id="Chrome浏览器的network"><a href="#Chrome浏览器的network" class="headerlink" title="Chrome浏览器的network"></a>Chrome浏览器的network</h5><p>可以观察到的几个点</p>
+<h2 id="JavaScript-原型链"><a href="#JavaScript-原型链" class="headerlink" title="JavaScript 原型链"></a>JavaScript 原型链</h2><p>直接讲述概念可能会特别的抽象，这里举个例子JavaScript原型的使用场景</p>
+<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name, age</span>)</span>&#123; <br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.age = age;<br>&#125;<br><br>Person.prototype.skill = <span class="hljs-string">&quot;呼吸&quot;</span><br><br><span class="hljs-keyword">let</span> xiaoming = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;小明&quot;</span>, <span class="hljs-number">18</span>)<br><br><span class="hljs-built_in">console</span>.log(xiaoming)<br></code></pre></td></tr></table></figure>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220306112021201.png" srcset="/img/loading.gif" lazyload alt="简单原型示意图"></p>
+<p>可以看到我们创建了一个Person的函数（类），然后内部有2个属性<code>name</code>，<code>age</code>，后面再给这个Person的原型上添加<code>skill=呼吸</code> ，最后通过Person创建出来的对象“小明”，除了具备初始传参进去的“名字“和“年龄“，还有一个通用的技能 “呼吸”。假设没有原型，如果要给每个通过Person创建出来的对象添加“呼吸”这个技能就会特别麻烦。不过通过console输出这个对象，会发现 skill这个属性是挂在 <code>__proto__</code>上的，这也是javascript 原型链的特点，</p>
+<blockquote>
+<p>JavaScript 对象有一个指向一个原型对象的链。当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。</p>
+</blockquote>
+<p>通过原型这一特点，也让JavaScript实现了“类”的继承、封装。</p>
+<p>JavaScript原型链还有几个比较重要的概念 (比较容易混淆)</p>
+<p><code>__proto__</code>:  属性<strong>proto</strong>是一个对象，它有两个属性，constructor和<strong>proto</strong></p>
+<p><code>prototype</code>，<code>constructor</code> 原型对象prototype有一个默认的constructor属性，用于记录实例是由哪个构造函数创建</p>
+<p>这个是原型链比较著名的一张图</p>
+<p>比较特殊的是 <strong>Object</strong>、<strong>Funtion</strong> 这2个原生函数</p>
+<p><code>Object.__proto__.__proto</code>__ 指向null</p>
+<p><code>Funtion.__proto__</code> 指向本身的原型Funtion.prototype</p>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/1183435-20170915105226032-1488063174.jpg" srcset="/img/loading.gif" lazyload alt="javascript原型、原型链神图"></p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>要理解JavaScript作用域，先得理解什么是<strong>作用域</strong></p>
+<blockquote>
+<p>作用域产生于程序源代码中定义变量的区域，在程序编码阶段就确定了。JavaScript 中分为全局作用域(Global context： <code>window</code>/<code>global</code> )和局部作用域（Local Scope , 又称为函数作用域 Function context）。简单讲作用域就是当前函数的<code>生成环境</code>或者<code>上下文</code>，包含了当前函数内定义的变量以及对外层作用域的引用。</p>
+</blockquote>
+<p>JavaScript里作用域的类型可分为几种</p>
 <ul>
-<li>请求的顺序</li>
-<li>请求的协议以及请求体、响应体</li>
-<li>调用的堆栈信息</li>
+<li>window/global Scope 全局作用域</li>
+<li>function Scope 函数作用域</li>
+<li>Block Scope 块级作用域</li>
+<li>eval Scope eval作用域</li>
 </ul>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220301224342082.png" srcset="/img/loading.gif" lazyload alt="image-20220301224342082"></p>
-<p><strong>network</strong>给出的关键信息也能辅助我们快速定位到接口发起的地方，从而逆向参数生成的位置</p>
-<h5 id="Chrome-油猴脚本插件"><a href="#Chrome-油猴脚本插件" class="headerlink" title="Chrome 油猴脚本插件"></a>Chrome 油猴脚本插件</h5><p>油猴脚本注入的js能够页面加载之前进去，所以js逻辑生效的时机也能够特别早</p>
-<p>对于cookie的hook，可以通过油猴脚本的方式注入，第一时间能够观察到cookie的变化</p>
-<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><p>Win、Mac 都有抓包的工具<br>这里主要讲下Mac里使用的抓包工具 Charles<br>通过抓包工具可以看到一些跳页的请求，network里有时候难以看到的请求，还能通过Charles 代理某些地址到本地文件<br>比如首页替换、js替换等等</p>
-<p><strong>Tool -&gt; Map local Settings -&gt; add -&gt; Edit Mapping</strong></p>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220302224039568.png" srcset="/img/loading.gif" lazyload alt="Map local设置"></p>
-<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>2022年03月02日 暂时先补充这么多方法和技巧，后续学习中还有别的了解会继续添加在上面</p>
+<p><strong>全局作用域</strong></p>
+<p>在代码中任何地方都能访问到的对象拥有全局作用域，一般来说以下几种情形拥有全局作用域</p>
+<ul>
+<li>最外层函数和在最外层函数外面定义的变量拥有全局作用域</li>
+<li>所有末定义直接赋值的变量自动声明为拥有全局作用域</li>
+<li>所有 window 对象的属性拥有全局作用域</li>
+</ul>
+<p><strong>函数作用域</strong></p>
+<p>是指声明在函数内部的变量，和全局作用域相反，局部作用域一般只在特定的代码片段内可访问到，最常见的例如函数内部。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> val = <span class="hljs-number">1</span> <span class="hljs-comment">// 全局变量</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>&#123;<br>  val2 = <span class="hljs-number">222</span> <span class="hljs-comment">// 未定义的变量直接复制默认是全局变量</span><br>  <span class="hljs-keyword">var</span> val3 = <span class="hljs-number">333</span><br>&#125;<br>init()<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">console</span>.log(val)  <span class="hljs-comment">// 1</span><br>  <span class="hljs-built_in">console</span>.log(val2) <span class="hljs-comment">// 2</span><br>  <span class="hljs-comment">// console.log(val3) // val3属于init函数的内部变量，如果这里使用val3 运行会提示 ReferenceError: val3 is not defined</span><br>  <span class="hljs-comment">// test函数的函数作用域内没有val3，顺着作用域链寻找val3也找不到该变量的定义</span><br>&#125;<br>test()<br></code></pre></td></tr></table></figure>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220306124038993.png" srcset="/img/loading.gif" lazyload alt="demo"></p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><blockquote>
+<p>一个函数和对其周围状态（<strong>lexical environment，词法环境</strong>）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是<strong>闭包</strong>（<strong>closure</strong>）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeAdder</span>(<span class="hljs-params">x</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">y</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> x + y;<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">var</span> add5 = makeAdder(<span class="hljs-number">5</span>);<br><span class="hljs-keyword">var</span> add10 = makeAdder(<span class="hljs-number">10</span>);<br><br><span class="hljs-built_in">console</span>.log(add5(<span class="hljs-number">2</span>));  <span class="hljs-comment">// 7</span><br><span class="hljs-built_in">console</span>.log(add10(<span class="hljs-number">2</span>)); <span class="hljs-comment">// 12</span><br></code></pre></td></tr></table></figure>
+<p>看下这个例子，就可以发现add5，add10 这2个函数中的x不一样，是由函数创建时候的x的值确定的。</p>
+<p>闭包的运用通常是用来存储一些不希望外部直接改变的变量，或者是一些缓存信息</p>
+<p>比如常见在初始化过程中或者一些函数执行过程中生成的函数内部具有一些变量，而这些变量的值在是由函数创建时候确定的，所以逆向的时候需要找到该函数创建时候的堆栈</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 简单的例子</span><br><span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params">key</span>)</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode</span>(<span class="hljs-params">word</span>) </span>&#123;<br>     <span class="hljs-comment">// key 是闭包中的变量</span><br>   	 <span class="hljs-keyword">return</span> key + word<br>	&#125;<br>&#125;<br><span class="hljs-keyword">var</span> oneEncodeFn = init(<span class="hljs-string">&#x27;hello&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>JavaScript基础知识补给包送到大家手中， 后面一篇将会讲浏览器环境与Node环境的区别，再带大家一起实践下如何补环境。</p>
+<p>感谢观看~</p>
+<p>觉得有帮助的朋友可以关注一波噢！</p>
+<p>「程序与浪漫」持续更新前端/爬虫/安全相关的知识</p>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/qrcode.jpg" srcset="/img/loading.gif" lazyload alt="公众号"></p>
 
             </div>
             <hr>
@@ -310,18 +327,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/06/js-base/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JS基础知识补给包</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/06/2022-02-06-go/">
-                        <span class="hidden-mobile">GO 语言初体验</span>
+                      <a href="/2022/02/28/js-hook/">
+                        <span class="hidden-mobile">工欲善其事必先利其器——js逆向基础知识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
