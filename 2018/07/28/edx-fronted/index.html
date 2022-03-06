@@ -9,7 +9,6 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
-  <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -24,16 +23,16 @@
 <meta property="og:site_name" content="进击的前端工程狮">
 <meta property="og:description" content="前言opene edx 是开源的教育平台，在未来的开发计划中，open edx也在往前后端分离的方向进行。现在就来初探一下，edx前后端分离的思路笔者从开始了解edx的studio-frontend前端仓库，到尝试构建，到成功搭建启动的过程，还是遇到了许多问题，有可能读者按官方的流程来走，可能会遇到挺多坑。 初探edx前后端分离前提说明笔者搭建的环境：Mac os后端server: edx&#x2F;dev">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/151680/1533003086237-da40c61b-b4d7-4243-971a-247126e08667.png">
+<meta property="og:image" content="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/20220307002603.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/151680/1533008098233-a538f9fa-9af0-410d-844d-737157a297b6.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/151680/1533004031441-ab1ae521-9a1d-4286-bcfa-e601d8c15eb4.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/151680/1533005413128-8a486aee-d770-484f-baa2-720fbdc74aff.png">
 <meta property="article:published_time" content="2018-07-28T06:26:30.000Z">
-<meta property="article:modified_time" content="2019-03-26T05:30:18.060Z">
+<meta property="article:modified_time" content="2022-03-06T16:26:22.941Z">
 <meta property="article:author" content="Crews">
 <meta property="article:tag" content="edx">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2018/png/151680/1533003086237-da40c61b-b4d7-4243-971a-247126e08667.png">
+<meta name="twitter:image" content="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/20220307002603.png">
   
   
   <title>open edx 前后端分离初探 - 进击的前端工程狮</title>
@@ -251,7 +250,7 @@
 <p>第二步: <code>cd studio-frontend</code> 编辑 Dockerfile文件第六行<br><del>RUN npm i -g <a href="mailto:npm@5.8.0">npm@5.8.0</a></del><br>RUN npm i -g npm@latest // 简单来说就是将npm的版本改为最新版本</p>
 <p>第三步: <code>make up</code></p>
 <p>第四步: 等待启动完毕后，打开 <code>http://localhost:18011/assets.html</code>，点击 <code>Log in</code>，输入账号 <a href="mailto:edx@example.com">edx@example.com</a> 密码 edx 登录系统后，回到 assets页面，即可看到如下页面</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2018/png/151680/1533003086237-da40c61b-b4d7-4243-971a-247126e08667.png" srcset="/img/loading.gif" lazyload alt="image.png | left | 747x373"></p>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/20220307002603.png" srcset="/img/loading.gif" lazyload alt="image.png | left | 747x373"></p>
 <p>至此，一个官方的studio-frontend 前端搭建起来</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><strong>studio-frontend </strong>前后端分离采用的技术是<br><strong>webpack</strong> + <strong>react</strong> + <strong>redux</strong> + <strong>bootstrap</strong> + <strong>paragon</strong><br><strong>webpack</strong>是前端工程流工具<br><strong>react</strong> 与 <strong>paragon</strong>、<strong>bootstrap</strong> 构建了高级的功能组件<br><strong>redux</strong> 集中式对页面数据进行管理<br>该项目采取的是多页面多入口的打包方式，打包构建后的结果如下<br>├── accessibilityPolicy.min.css<br>├── accessibilityPolicy.min.js<br>├── accessibilityPolicy.min.js.map<br>├── assets.min.css<br>├── assets.min.js<br>├── assets.min.js.map<br>├── common.min.css<br>├── common.min.js<br>├── common.min.js.map<br>├── courseHealthCheck.min.css<br>├── courseHealthCheck.min.js<br>├── courseHealthCheck.min.js.map<br>├── courseOutlineHealthCheck.min.css<br>├── courseOutlineHealthCheck.min.js<br>├── courseOutlineHealthCheck.min.js.map<br>├── editImageModal.min.css<br>├── editImageModal.min.js<br>├── editImageModal.min.js.map<br>├── i18n<br>│   └── messages<br>│       ├── ar.json<br>│       ├── es_419.json<br>│       ├── fr.json<br>│       └── zh_CN.json<br>├── i18nMessages.min.js<br>├── i18nMessages.min.js.map<br>├── runtime.min.js<br>└── runtime.min.js.map<br>最后将js.css文件嵌入在后端模版文件中，构成页面</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2018/png/151680/1533008098233-a538f9fa-9af0-410d-844d-737157a297b6.png" srcset="/img/loading.gif" lazyload alt="image.png | left | 747x380"></p>
