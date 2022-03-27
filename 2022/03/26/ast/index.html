@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Crews">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="抽象语法树抽象语法树AST是什么？看维基百科中的说明  在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状)的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节  简单的来说就是一种标准的树形结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小知识补给包：AST抽象语法树基础">
+<meta property="og:url" content="http://crews.github.io/blog/2022/03/26/ast/index.html">
+<meta property="og:site_name" content="进击的前端工程狮">
+<meta property="og:description" content="抽象语法树抽象语法树AST是什么？看维基百科中的说明  在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状)的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节  简单的来说就是一种标准的树形结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://crews.github.io/img/post/ast.png">
+<meta property="article:published_time" content="2022-03-26T13:06:15.000Z">
+<meta property="article:modified_time" content="2022-03-27T14:53:23.943Z">
+<meta property="article:author" content="Crews">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://crews.github.io/img/post/ast.png">
+  
+  
+  <title>小知识补给包：AST抽象语法树基础 - 进击的前端工程狮</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>程序与浪漫</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/banner.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="小知识补给包：AST抽象语法树基础">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-26 21:06" pubdate>
+        2022年3月26日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      44 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">小知识补给包：AST抽象语法树基础</h1>
+            
+            <div class="markdown-body">
+              <h2 id="抽象语法树"><a href="#抽象语法树" class="headerlink" title="抽象语法树"></a>抽象语法树</h2><p>抽象语法树AST是什么？看维基百科中的说明</p>
+<blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/计算机科学">计算机科学</a>中，<strong>抽象语法树</strong>（<strong>A</strong>bstract <strong>S</strong>yntax <strong>T</strong>ree，AST），或简称<strong>语法树</strong>（Syntax tree），是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/源代码">源代码</a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/语法学">语法</a>结构的一种抽象表示。它以<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/树_(图论">树状</a>)的形式表现<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/编程语言">编程语言</a>的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节</p>
+</blockquote>
+<p>简单的来说就是一种标准的树形结构数据来代表一段代码函数，通过特定的工具能够实现源码code 与 ast的互相转换。</p>
+<h2 id="AST有什么用？"><a href="#AST有什么用？" class="headerlink" title="AST有什么用？"></a>AST有什么用？</h2><p>在前端领域，想必大家都了解<strong>babel</strong>。通过babel，能够将大家书写的ES 高级特性的语法转历史版本里浏览器能够兼容运行的ES5代码。其中babel就是通过不同的转换器，将新特性中的高级语法做了一层转换。通常我们在编写代码中都不需要了解这些，只需要配置下，就能生效起作用。在爬虫领域中javascript代码的混淆对抗离不开AST，了解AST的一些基本知识内容，无论是对“大神”编写的反混淆脚本还是自己编码脚本都是非常有帮助的。今天我们来探究下怎么“玩”AST。</p>
+<h2 id="Babel工具库"><a href="#Babel工具库" class="headerlink" title="Babel工具库"></a>Babel工具库</h2><p>把code转化成ast的库很多，这里就不一一列举。这里说的都是babel的周边库</p>
+<ul>
+<li>@babel/parser  解析器</li>
+<li>@babel/traverse 遍历器</li>
+<li>@babel/types 类型判断、ast结构构造</li>
+<li>@babel/generator code生成器</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs js">mkdir test-ast<br>cd test-ast<br>npm install -D @babel/parser @babel/traverse @babel/types @babel/generator<br></code></pre></td></tr></table></figure>
+<p>通过上面指令，创建文件夹安装babel库，尝试自己编码简单的脚本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// test-code.js</span><br><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// test.js</span><br><span class="hljs-keyword">const</span> parser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/parser&quot;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><span class="hljs-keyword">const</span> traverse = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/traverse&quot;</span>).default;<br><span class="hljs-keyword">const</span> t = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/types&quot;</span>);<br><span class="hljs-keyword">const</span> generator = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/generator&quot;</span>).default;<br><br><br><span class="hljs-keyword">var</span> jscode = fs.readFileSync(<span class="hljs-string">&#x27;./code-test.js&#x27;</span>, &#123;<br>	<span class="hljs-attr">encoding</span>: <span class="hljs-string">&quot;utf-8&quot;</span><br>&#125;);<br><br><span class="hljs-keyword">const</span> ast = parser.parse(jscode)<br><span class="hljs-keyword">const</span> BinaryExpressionEx = <span class="hljs-function">(<span class="hljs-params">path</span>) =&gt;</span> &#123;<br>	<span class="hljs-keyword">const</span>&#123;confident, value&#125; = path.evaluate();<br>	path.replaceInline(t.valueToNode(value))<br>&#125;<br>traverse(<br>	ast,<br>	&#123;<br>		<span class="hljs-attr">BinaryExpression</span>: &#123;<br>			<span class="hljs-attr">exit</span>: [BinaryExpressionEx]<br>		&#125;,<br>	&#125;<br>)<br><span class="hljs-keyword">var</span> &#123; code &#125; = generator(ast, &#123;<br>	<span class="hljs-attr">jsescOption</span>: &#123;<br>			<span class="hljs-comment">// 自动转义</span><br>			<span class="hljs-attr">minimal</span>: <span class="hljs-literal">true</span>,<br>	&#125;<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log(code)<br><span class="hljs-comment">// const a = 3;</span><br></code></pre></td></tr></table></figure>
+<p>编写 test-code.js【源码文件】test.js【脚本文件】</p>
+<p>然后node test.js 执行脚本文件，最后发现源码里<code>const a = 1+2</code> 变成  <code>const a = 3</code></p>
+<p>这是一个简单的例子，但是如果没有对每个库的作用和AST的基本内容了解，想要编写也是有点难。看过了简单里，我们先来了解AST基础知识。</p>
+<h2 id="AST基础知识"><a href="#AST基础知识" class="headerlink" title="AST基础知识"></a>AST基础知识</h2><p>这里介绍几个实用网站</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://astexplorer.net/">在线转化AST </a> 可以在线看到行级别的代码对应的AST树的结构</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md#toc-scopes">babel使用手册</a> 对上面4个工具库有比较完整的介绍</li>
+</ul>
+<p>Babel 的三个主要处理步骤分别是： <strong>解析（parse）</strong>，<strong>转换（transform）</strong>，<strong>生成（generate）</strong>。.</p>
+<p>通过解析后就得到AST抽象语法树，像下图所示一层一层的。每一个层级是一个「<strong>Node</strong>」节点</p>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220327213824762.png" srcset="/img/loading.gif" lazyload alt="抽象语法树"></p>
+<p>想要对AST操作的话，就需要对AST树进行递归遍历，在babel工具库 traverse 封装好遍历器，只需要编码对应的函数即可以实现遍历节点并修改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> MyVisitor = &#123;<br>  <span class="hljs-comment">// 变量遍历</span><br>  <span class="hljs-function"><span class="hljs-title">Identifier</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Called!&quot;</span>);<br>  &#125;,<br>  <span class="hljs-comment">// 表达式遍历 </span><br>  <span class="hljs-function"><span class="hljs-title">BinaryExpression</span>(<span class="hljs-params"></span>)</span> &#123;<br>	&#125;<br>  <span class="hljs-comment">// ....</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>所有的遍历都是有进入和出去2个过程，可针对不同的场景在不同时机处理</p>
+<p><strong>概念 Path</strong>：刚刚所说的遍历器，遍历的并非节点，而是path。</p>
+<blockquote>
+<p>AST 通常会有许多节点，那么节点直接如何相互关联呢？ 我们可以使用一个可操作和访问的巨大可变对象表示节点之间的关联关系，或者也可以用<strong>Paths</strong>（路径）来简化这件事情。.<strong>Path</strong> 是表示两个节点之间连接的对象。</p>
+</blockquote>
+<p>个人对path理解就是链表的数据结构，通过path能够找到关联的parent 和其他相关的信息，从而找到该节点的位置信息，进行判断和修改</p>
+<p><strong>概念 Scopes（作用域）</strong></p>
+<p>在之前的文章中也讲解过一些JavaScript作用域相关的知识内容，而在AST中，也有对应的概念<strong>Scope</strong>。</p>
+<p>这是AST中scope的数据结构，包含了关联的父级节点路径、当前节点路径与所有引用的“绑定”</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-attr">path</span>: path, <span class="hljs-comment">// 当前路径</span><br>  <span class="hljs-attr">block</span>: path.node, <span class="hljs-comment">// 当前节点</span><br>  <span class="hljs-attr">parentBlock</span>: path.parent, <span class="hljs-comment">// 父级路径</span><br>  <span class="hljs-attr">parent</span>: parentScope, <span class="hljs-comment">// 父级作用域</span><br>  <span class="hljs-attr">bindings</span>: [...] <span class="hljs-comment">// 所有引用</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>作用域这块内容相对于Node、Path、遍历器来说是比较复杂的一块，后续可以通过更多的例子了解如何处理作用域。</p>
+<h4 id="一个简单的对象合并例子"><a href="#一个简单的对象合并例子" class="headerlink" title="一个简单的对象合并例子"></a>一个简单的对象合并例子</h4><p>这个是从反混淆脚本<code>ob-decrypt.js</code>中摘取一个方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> parser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/parser&quot;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><span class="hljs-keyword">const</span> traverse = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/traverse&quot;</span>).default;<br><span class="hljs-keyword">const</span> t = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/types&quot;</span>);<br><span class="hljs-keyword">const</span> generator = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@babel/generator&quot;</span>).default;<br><br><br><span class="hljs-keyword">var</span> jscode = fs.readFileSync(<span class="hljs-string">&#x27;./code.js&#x27;</span>, &#123;<br>	<span class="hljs-attr">encoding</span>: <span class="hljs-string">&quot;utf-8&quot;</span><br>&#125;);<br><br><br><span class="hljs-keyword">const</span> ast = parser.parse(jscode)<br>traverse(<br>	ast, <br>	&#123;<br>		<span class="hljs-attr">VariableDeclarator</span>: &#123;<br>			<span class="hljs-attr">exit</span>: [merge_obj]<br>		&#125;,<br>	&#125;<br>);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge_obj</span>(<span class="hljs-params">path</span>) </span>&#123;<br>	<span class="hljs-comment">// 将拆分的对象重新合并</span><br>	<span class="hljs-keyword">const</span> &#123;id, init&#125; = path.node;<br>	<span class="hljs-comment">// 判断是否为对象</span><br>	<span class="hljs-keyword">if</span> (!t.isObjectExpression(init))<br>			<span class="hljs-keyword">return</span>;<br><br>	<span class="hljs-keyword">let</span> name = id.name;<br>	<span class="hljs-comment">// 对象的属性</span><br>	<span class="hljs-keyword">let</span> properties = init.properties;<br><br>	<span class="hljs-comment">// 拿到当前路径的作用域</span><br>	<span class="hljs-keyword">let</span> scope = path.scope;<br>	<span class="hljs-keyword">let</span> binding = scope.getBinding(name);<br>	<span class="hljs-keyword">if</span> (!binding || binding.constantViolations.length &gt; <span class="hljs-number">0</span>) &#123;<br>			<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-comment">// scope.block 对应的是当前节点的node</span><br>	scope.traverse(scope.block, &#123;<br>			<span class="hljs-comment">// AssignmentExpression 是赋值表达式遍历</span><br>			<span class="hljs-attr">AssignmentExpression</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">_path</span>) </span>&#123;<br>					<span class="hljs-keyword">const</span> left = _path.get(<span class="hljs-string">&quot;left&quot;</span>);<br>					<span class="hljs-keyword">const</span> right = _path.get(<span class="hljs-string">&quot;right&quot;</span>);<br>					<span class="hljs-comment">// 判断是否是对象成员表达</span><br>					<span class="hljs-keyword">if</span> (!left.isMemberExpression())<br>							<span class="hljs-keyword">return</span>;<br>					<span class="hljs-keyword">const</span> object = left.get(<span class="hljs-string">&quot;object&quot;</span>);<br>					<span class="hljs-keyword">const</span> property = left.get(<span class="hljs-string">&quot;property&quot;</span>);<br>					<span class="hljs-comment">// object.isIdentifier(&#123;name: name&#125;)  判断对象是否为当前遍历的对象</span><br>					<span class="hljs-comment">// property.isStringLiteral() 判断是否为字符串类型的赋值 例如 obj[&#x27;a&#x27;]这种赋值方式</span><br>					<span class="hljs-comment">// property.isIdentifier() 则判断是否 obj.a 这种方式</span><br>					<span class="hljs-comment">// 重新将作用域内的这些赋值表达在初始对象的时候赋予 properties</span><br>					<span class="hljs-comment">// 	_path.remove() 移除当前节点 避免重复赋值</span><br>					<span class="hljs-keyword">if</span> (object.isIdentifier(&#123;<span class="hljs-attr">name</span>: name&#125;) &amp;&amp; property.isStringLiteral() &amp;&amp; _path.scope == scope) &#123;<br>							properties.push(t.ObjectProperty(t.valueToNode(property.node.value), right.node));<br>							_path.remove();<br>					&#125;<br>					<span class="hljs-keyword">if</span> (object.isIdentifier(&#123;<span class="hljs-attr">name</span>: name&#125;) &amp;&amp; property.isIdentifier() &amp;&amp; _path.scope == scope) &#123;<br>							properties.push(t.ObjectProperty(t.valueToNode(property.node.name), right.node));<br>							_path.remove();<br>					&#125;<br>			&#125;<br>	&#125;)<br>&#125;<br><br><span class="hljs-keyword">var</span> &#123; code &#125; = generator(ast, &#123;<br>	<span class="hljs-attr">jsescOption</span>: &#123;<br>			<span class="hljs-comment">// 自动转义</span><br>			<span class="hljs-attr">minimal</span>: <span class="hljs-literal">true</span>,<br>	&#125;<br>&#125;);<br><br><span class="hljs-built_in">console</span>.log(code)<br><br><br></code></pre></td></tr></table></figure>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/image-20220327220202630.png" srcset="/img/loading.gif" lazyload alt="执行脚本结果"></p>
+<p>发现确实可以将对象赋值进行合并简化。这个是对babel工具库的简单应用。通过这个例子也让我们了解到如何去利用作用域找到所有关联的信息并一一修改，这个例子中简单概括就是</p>
+<ul>
+<li>遍历对象定义</li>
+<li>找到对象定义的作用域内所有添加属性的地方</li>
+<li>将添加属性值的“行为”放在初始化对象的时候</li>
+<li>然后删除该属性定义的节点</li>
+<li>重复执行至到最后</li>
+</ul>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>AST的水还是比较深，因为JavaScript编码的过程就比较灵活，所以babel脚本通常需要不断的编码修复各种异常现象。通过了解AST基础知识，想必大家也学会了一些小技巧。留个课后作业题给大家尝试编码，关注后回复公众号 “AST1答案“ ，返回答案给你哦。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 简单混淆</span><br><span class="hljs-comment">// decode为还原函数</span><br>decode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">number</span>)</span>&#123;<br>	<span class="hljs-keyword">return</span>	<span class="hljs-built_in">String</span>.fromCharCode(number)<br><br>&#125;<br><span class="hljs-keyword">const</span> getToken = <span class="hljs-function">(<span class="hljs-params">hash</span>) =&gt;</span> &#123;<br>	<span class="hljs-keyword">const</span> obj = &#123;&#125;<br>	obj[decode(<span class="hljs-number">97</span>)] = <span class="hljs-number">6</span><br>	obj[decode(<span class="hljs-number">115</span>)] = <span class="hljs-number">6</span><br>	obj[decode(<span class="hljs-number">116</span>)] = <span class="hljs-number">6</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>感谢观看~</p>
+<p>觉得有帮助的朋友可以关注一波噢！</p>
+<p>「程序与浪漫」持续更新前端/爬虫/安全相关的知识</p>
+<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/qrcode.jpg" srcset="/img/loading.gif" lazyload alt="公众号"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/18/svelte/">
+                        <span class="hidden-mobile">「svelte」是前端排名前三的框架，你知道吗？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz","appKey":"16u5FmQt2ppD2oWWH6e1QgAy","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"xRa1JW54LJazYalhrKkVR4Yk-gzGzoHsz"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+    <!-- cnzz Analytics Icon -->
+    <span id="cnzz_stat_icon_1280774100" style="display: none"></span>
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <!-- cnzz Analytics -->
+    <script defer src="//s4.cnzz.com/z_stat.php?id=1280774100&show=pic"
+            type="text/javascript"></script>
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
