@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://crews.github.io/img/post/ast.png">
 <meta property="article:published_time" content="2022-03-26T13:06:15.000Z">
-<meta property="article:modified_time" content="2022-03-27T14:53:23.943Z">
+<meta property="article:modified_time" content="2022-03-29T15:28:57.426Z">
 <meta property="article:author" content="Crews">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://crews.github.io/img/post/ast.png">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      5.1k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      44 分钟
+      43 分钟
     </span>
   
 
@@ -293,15 +293,19 @@
 </ul>
 <h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>AST的水还是比较深，因为JavaScript编码的过程就比较灵活，所以babel脚本通常需要不断的编码修复各种异常现象。通过了解AST基础知识，想必大家也学会了一些小技巧。留个课后作业题给大家尝试编码，关注后回复公众号 “AST1答案“ ，返回答案给你哦。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 简单混淆</span><br><span class="hljs-comment">// decode为还原函数</span><br>decode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">number</span>)</span>&#123;<br>	<span class="hljs-keyword">return</span>	<span class="hljs-built_in">String</span>.fromCharCode(number)<br><br>&#125;<br><span class="hljs-keyword">const</span> getToken = <span class="hljs-function">(<span class="hljs-params">hash</span>) =&gt;</span> &#123;<br>	<span class="hljs-keyword">const</span> obj = &#123;&#125;<br>	obj[decode(<span class="hljs-number">97</span>)] = <span class="hljs-number">6</span><br>	obj[decode(<span class="hljs-number">115</span>)] = <span class="hljs-number">6</span><br>	obj[decode(<span class="hljs-number">116</span>)] = <span class="hljs-number">6</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<p>感谢观看~</p>
-<p>觉得有帮助的朋友可以关注一波噢！</p>
-<p>「程序与浪漫」持续更新前端/爬虫/安全相关的知识</p>
-<p><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/qrcode.jpg" srcset="/img/loading.gif" lazyload alt="公众号"></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
+                <div style="text-align:center">
+                  <p>感谢观看~</p>
+                  <p>觉得有帮助的朋友可以关注一波噢！~</p>
+                  <p>「程序与浪漫」持续更新前端/爬虫/安全相关的知识~</p>
+                  <p>
+                    <a class="fancybox fancybox.image" target="_blank" href="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/qrcode.jpg" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url" data-fancybox="default" rel="default noopener" title="公众号" data-caption="公众号"><img src="https://crews-note-1253247308.cos.ap-guangzhou.myqcloud.com/note/qrcode.jpg" srcset="/img/loading.gif" lazyload alt="公众号"><p class="image-caption">公众号</p></a>
+                  </p>
+                </div>
                 
                 
               </div>
