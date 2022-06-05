@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -25,15 +25,19 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+  
   <title>进击的前端工程狮</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -42,21 +46,40 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+
+  
 <meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>程序与浪漫</strong>
@@ -138,6 +161,7 @@
               &nbsp;<i class="iconfont icon-search"></i>&nbsp;
             </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
@@ -150,34 +174,40 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg/banner.jpeg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="进击的前端攻城狮">
-              
-            </span>
+  
 
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/banner.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="进击的前端攻城狮"></span>
           
         </div>
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
+        <div id="board"
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
@@ -196,12 +226,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/03/26/react-saga/" target="_self">
+      <a class="index-excerpt" href="/2019/03/26/react-saga/" target="_self">
+        <div>
           
           react-saga的学习和理解前言在使用react redux的时候，会经常遇到需要处理异步action的情况。处理异步action的方法有几种。其中redux-thunk，redux-saga都是处理异步action的中间件。利用这些中间件可以很好的达到我们预期效果 redux-sagaredux-saga是一个用于管理应用程序 Side Effect（副作用，例如异步获取数据，访问浏览器缓存
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -217,7 +247,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/react/">react</a>
+              <a href="/tags/react/">#react</a>
             
           </div>
         
@@ -236,12 +266,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/02/16/react-router/" target="_self">
+      <a class="index-excerpt" href="/2019/02/16/react-router/" target="_self">
+        <div>
           
           前言之前使用react router都是参考着demo写路由，此次将整体过一遍 React Router v4的教程与文档。系统学习react router，深入理解前端路由的概念。 React Routerv4 的版本将路由进行了拆分，将其放到了各自的模块中，不再有单独的 router 模块，充分体现了组件化的思想；另外，&lt;BrowserRouter&gt; 的使用与之前作为 histor
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -257,7 +287,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/react/">react</a>
+              <a href="/tags/react/">#react</a>
             
           </div>
         
@@ -276,12 +306,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/25/prototype/" target="_self">
+      <a class="index-excerpt" href="/2019/01/25/prototype/" target="_self">
+        <div>
           
           前言JavaScript的语言特性是每个前端工程师深入学习必须了解的内容。以下是对JavaScript原型、原型链与原型继承的归纳总结。 关于原型的几个概念构造函数、实例对象、原型、proto构造函数：在JavaScript中，构造方法一般命名首字母大写，通过new 命令调用。实例对象：是通过new 命令调用 构造方法 创建出来的对象。原型：在javascript中每个函数有个特殊的属性为原型（p
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -297,7 +327,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/javascript/">javascript</a>
+              <a href="/tags/javascript/">#javascript</a>
             
           </div>
         
@@ -316,12 +346,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/21/debounce/" target="_self">
+      <a class="index-excerpt" href="/2019/01/21/debounce/" target="_self">
+        <div>
           
           前言在实际的开发过程中，其实我们会经常遇到需要用防抖与节流的场景。比如搜索框连续输入文字进行异步请求的搜索可以用到防抖函数进行优化。 防抖防抖函数，简单的理解为频发触发事件在指定时间内不触发才执行。在输入框添加了onchange监听事件，只要输入框内容变化就会调用监听事件。但需求是连续输入只需要查询最后的输入结果，那么给这个监听事件增加防抖即可实现。具体看代码例子12345678910111213
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -337,7 +367,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/javascript/">javascript</a>
+              <a href="/tags/javascript/">#javascript</a>
             
           </div>
         
@@ -356,12 +386,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/14/%E9%97%AD%E5%8C%85/" target="_self">
+      <a class="index-excerpt" href="/2019/01/14/%E9%97%AD%E5%8C%85/" target="_self">
+        <div>
           
           前言闭包是js特有一个概念问题，应该是js学习者都会遇到的疑问：什么是闭包？关于闭包的回答网上也有很多前辈的总结，笔者也看的比较多，都是从不同角度去阐述闭包这个问题。笔者最近复习闭包的概念，从js执行上下文角度去理解闭包，从而有更深入的理解。 什么是闭包在MDN中给出闭包的概念是  JavaScript中的函数会形成闭包。 闭包是由函数以及创建该函数的词法环境组合而成。这个环境包含了这个闭包创建时
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -377,7 +407,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/javascript/">javascript</a>
+              <a href="/tags/javascript/">#javascript</a>
             
           </div>
         
@@ -396,12 +426,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/13/js%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" target="_self">
+      <a class="index-excerpt" href="/2019/01/13/js%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" target="_self">
+        <div>
           
           前言笔者在学习JavaScript基础知识的时候，对于一些概念的理解都是看网上前辈的经验总结，但是对于为什么是这样没有过多深入理解，比如变量提升，函数作用域，闭包的原理。今天我们从JavaScript执行上下文开始，从原理出发理解概念。 1.什么是JavaScript执行上下文JavaScript运行代码时环境（三种）  全局代码：代码默认运行的环境，最先会进入到全局环境中 函数代码：在函数的局部
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -417,7 +447,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/javascript/">javascript</a>
+              <a href="/tags/javascript/">#javascript</a>
             
           </div>
         
@@ -436,12 +466,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/08/promise/" target="_self">
+      <a class="index-excerpt" href="/2019/01/08/promise/" target="_self">
+        <div>
           
           前言Promise是异步编程的一种解决方案，它可以解决异步回调地狱的问题，防止层层嵌套对程序代码带来的难维护性。在用javascript编码的过程中，我们少不了使用异步回调的时候。学会使用promise解决异步编程问题，将更有效得解决异步问题。接下来让我们一起学习ES6中的Promise。 promise对象 一个 Promise 就是一个代表了异步操作最终完成或者失败的对象。大多数人都在使用由其
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -457,9 +487,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/promise/">promise</a>
+              <a href="/tags/promise/">#promise</a>
             
-              <a href="/tags/es6/">es6</a>
+              <a href="/tags/es6/">#es6</a>
             
           </div>
         
@@ -478,12 +508,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/01/03/babel/" target="_self">
+      <a class="index-excerpt" href="/2019/01/03/babel/" target="_self">
+        <div>
           
           前言在使用es6编码开发的时候，或多或少都会遇到浏览器兼容的问题Babel就是解决这个问题的但是在使用的时候却发现有Babel-polyfill,有Babel-transform-runtime等等，一下子分不清他们的区别是什么今天的主题就是了解一下他们的区别以及我们该如何去配置 1.babelbabel可以理解为javascript的编译器，更确切地说是源码到源码的编译器，通常也叫做“转换编译器
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -499,9 +529,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/javascript/">javascript</a>
+              <a href="/tags/javascript/">#javascript</a>
             
-              <a href="/tags/babel/">babel</a>
+              <a href="/tags/babel/">#babel</a>
             
           </div>
         
@@ -520,12 +550,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2018/12/28/webpack/" target="_self">
+      <a class="index-excerpt" href="/2018/12/28/webpack/" target="_self">
+        <div>
           
           前言前端工程流越来越被大家所了解使用后，webpack也是目前各位前端工程师所必备的技能了但是webapck所涵盖的内容又太多了，所以对于日常使用来说，我们优先掌握基础知识和优化策略即可 webpack基础知识1、webpack是什么？官网文档的解释  本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(static module bundler)。在 webpac
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -541,7 +571,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/webpack/">webpack</a>
+              <a href="/tags/webpack/">#webpack</a>
             
           </div>
         
@@ -560,12 +590,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2018/11/26/wxshare-signatrue/" target="_self">
+      <a class="index-excerpt" href="/2018/11/26/wxshare-signatrue/" target="_self">
+        <div>
           
           前言一般来说，前端开发者只需要完成微信分享一的实现即可。但是总有些时候，前端开发需要做更多的事情继微信分享（一），这次将用 egg 实现后端签名算法。 快速搭建环境第一步： 配置开发环境参考 egg 的官方文档，快速搭建一个 egg 环境 1234$ mkdir egg-example &amp;&amp; cd egg-example$ npm init egg --type&#x3D;ts$ npm i
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -581,7 +611,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/">微信分享</a>
+              <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/">#微信分享</a>
             
           </div>
         
@@ -626,63 +656,65 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
   
 
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
   
     <!-- cnzz Analytics Icon -->
     <span id="cnzz_stat_icon_1280774100" style="display: none"></span>
   
-</footer>
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -693,42 +725,23 @@
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
 
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-
-
-
-  <script defer src="/js/leancloud.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -736,24 +749,18 @@
 
 
 
-
-
-
-
-
-
-
-
   
     <!-- Baidu Analytics -->
     <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
     </script>
   
 
@@ -767,17 +774,44 @@
 
   
     <!-- cnzz Analytics -->
-    <script defer src="//s4.cnzz.com/z_stat.php?id=1280774100&show=pic"
-            type="text/javascript"></script>
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//s4.cnzz.com/z_stat.php?id=1280774100&show=pic');
+      }
+    </script>
+  
+
+  
+    
   
 
 
 
 
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
-<!-- 主题的启动项 保持在最底部 -->
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

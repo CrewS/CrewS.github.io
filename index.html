@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -25,15 +25,19 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+  
   <title>进击的前端工程狮</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -42,21 +46,40 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+
+  
 <meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>程序与浪漫</strong>
@@ -138,6 +161,7 @@
               &nbsp;<i class="iconfont icon-search"></i>&nbsp;
             </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
@@ -150,34 +174,40 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg/banner.jpeg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="进击的前端攻城狮">
-              
-            </span>
+  
 
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/banner.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="进击的前端攻城狮"></span>
           
         </div>
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
+        <div id="board"
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
@@ -202,12 +232,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/03/26/ast/" target="_self">
+      <a class="index-excerpt" href="/2022/03/26/ast/" target="_self">
+        <div>
           
           抽象语法树抽象语法树AST是什么？看维基百科中的说明  在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状)的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节  简单的来说就是一种标准的树形结
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -241,12 +271,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/03/18/svelte/" target="_self">
+      <a class="index-excerpt" href="/2022/03/18/svelte/" target="_self">
+        <div>
           
           前言可能大家对svelte这个框还比较陌生，甚至名字都没有听说过。先带大家看下官方的说法  Svelte 是一种全新的构建用户界面的方法。传统框架如 React 和 Vue 在浏览器中需要做大量的工作，而 Svelte 将这些工作放到构建应用程序的编译阶段来处理。与使用虚拟（virtual）DOM 差异对比不同。Svelte 编写的代码在应用程序的状态更改时就能像做外科手术一样更新 DOM。  大
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -262,7 +292,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E6%A1%86%E6%9E%B6/">前端、框架</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E6%A1%86%E6%9E%B6/">#前端、框架</a>
             
           </div>
         
@@ -287,12 +317,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/03/06/js-base/" target="_self">
+      <a class="index-excerpt" href="/2022/03/06/js-base/" target="_self">
+        <div>
           
           前言在逆向一些网站的时候，扣出来JS代码，能运行但是不知道为啥能这样跑。相信很多小伙伴有这样的疑惑，本篇文章主要讲解JavaScript里几个基础的知识点，帮助大家更好理解js代码。下面是主要内容，已经了解的同学可以不用看啦~  JavaScript原型链 函数作用域  JavaScript 原型链直接讲述概念可能会特别的抽象，这里举个例子JavaScript原型的使用场景 12345678910
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -308,9 +338,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/js%E9%80%86%E5%90%91/">js逆向</a>
+              <a href="/tags/js%E9%80%86%E5%90%91/">#js逆向</a>
             
-              <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>
             
           </div>
         
@@ -335,12 +365,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/02/28/js-hook/" target="_self">
+      <a class="index-excerpt" href="/2022/02/28/js-hook/" target="_self">
+        <div>
           
           前言这几年随着爬虫与反爬的对抗强提升，web端的js被加强了防护。想对js解密也没有以前那么简单，控制台打开，参数一看就可以开始请求接口。所以对爬虫也有一定的技术要求。这里将整理js逆向的一些方法论和技术。 总览自己的一些观点： 对于web端的反爬只要抓住请求是最后的“出口“就能顺着执行思路往回逆向。接口请求是客户端与server的交互，通过一定的参数让服务器“鉴权”通过，认可这个是一个“合法”客
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -356,9 +386,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/js%E9%80%86%E5%90%91/">js逆向</a>
+              <a href="/tags/js%E9%80%86%E5%90%91/">#js逆向</a>
             
-              <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>
             
           </div>
         
@@ -383,12 +413,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/02/06/2022-02-06-go/" target="_self">
+      <a class="index-excerpt" href="/2022/02/06/2022-02-06-go/" target="_self">
+        <div>
           
           前言笔者是做前端开发工作的，对Js、Nodejs比较熟悉。对其他技术不熟悉但是非常愿意接触，前端构建的工具链中也逐步有其他语言的接入，比如esbuild（GO语言）, swc（RUST）。率性就学习下GO语言，拓展自己的技术宽度。 GO 语言相信大家网上随便搜一下都能找到介绍GO语言的，这里我就不重复说了。  Go 语言具有很强的表达能力，它简洁、清晰而高效。得益于其并发机制， 用它编写的程序能够
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -404,9 +434,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/go/">go</a>
+              <a href="/tags/go/">#go</a>
             
-              <a href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
             
           </div>
         
@@ -431,12 +461,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/01/11/rollup-plugin/" target="_self">
+      <a class="index-excerpt" href="/2022/01/11/rollup-plugin/" target="_self">
+        <div>
           
           前言当前分析的Rollup版本：2.63.0 经过Rollup源码分析（一）、（二）篇幅的学习，大家对 Rollup 基础都有一定的了解。是否对 Rollup 插件想要更深入的了解呢？比如一个插件究竟怎么写出来的，一个插件的编写思路是怎样的。今天就让我带大家来学习一下，如何编写一个 Rollup 插件。 常用插件功能对 Rollup插件编写需要对插件各个环节的钩子有所了解，才能比较好的实现插件。但
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -452,9 +482,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/rollup/">rollup</a>
+              <a href="/tags/rollup/">#rollup</a>
             
-              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">web打包工具系列</a>
+              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">#web打包工具系列</a>
             
           </div>
         
@@ -479,12 +509,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/01/10/rollup2/" target="_self">
+      <a class="index-excerpt" href="/2022/01/10/rollup2/" target="_self">
+        <div>
           
           前言当前分析的Rollup版本：2.63.0 对于js的打包，在面对不同的业务场景时候，是需要不同的打包”姿势“。那怎么使用不同姿势呢？webpack有loader、plugin在打包的过程中处理各种各样的场景。Rollup说：我万变不离其宗，插件就能够做到相同的效果。今天这篇文章，主要讲的就是怎么使用Rollup插件。 Rollup插件的简单使用1234567891011121314151617
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -500,9 +530,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/rollup/">rollup</a>
+              <a href="/tags/rollup/">#rollup</a>
             
-              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">web打包工具系列</a>
+              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">#web打包工具系列</a>
             
           </div>
         
@@ -527,12 +557,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2022/01/09/rollup/" target="_self">
+      <a class="index-excerpt" href="/2022/01/09/rollup/" target="_self">
+        <div>
           
           前言当前分析的Rollup版本：2.63.0 打包工具作为前端最基础的工具之一，想必大家或多或少都会对其实现原理感兴趣。但是由于网上的资料参差不齐，学习起来非常困难，容易劝退。笔者想要通过web打包工具分析系列文章，揭秘web前端打包工具的实现原理，降低大家学习框架源码的门槛。 Rollup源码分析系列将会拆分成以下几部分  [x] Rollup的简单使用  [ ] Rollup的插件使用  [
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -548,9 +578,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/rollup/">rollup</a>
+              <a href="/tags/rollup/">#rollup</a>
             
-              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">web打包工具系列</a>
+              <a href="/tags/web%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97/">#web打包工具系列</a>
             
           </div>
         
@@ -575,12 +605,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2021/06/01/js%E9%80%86%E5%90%91%E4%B9%8B%E6%97%85/" target="_self">
+      <a class="index-excerpt" href="/2021/06/01/js%E9%80%86%E5%90%91%E4%B9%8B%E6%97%85/" target="_self">
+        <div>
           
           前言之前有尝试过破解极验的w值，其中有涉及到反混淆、加解密等知识，一步一步的得到最后的结果非常的有意思。最近有幸了解到《猿人学-爬虫刷题平台》网站，有许多有趣的js逆向题目。以下就是js逆向之旅（刷题之旅）。 js 混淆 - 源码乱码环境操作系统: mac语言: node编辑器：vscode 题目地址：http:&#x2F;&#x2F;match.yuanrenxue.com&#x2F;match&#x2F;1概述：看了下题目大概就是请
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -596,7 +626,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/js%E9%80%86%E5%90%91/">js逆向</a>
+              <a href="/tags/js%E9%80%86%E5%90%91/">#js逆向</a>
             
           </div>
         
@@ -615,12 +645,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/12/09/docker-front/" target="_self">
+      <a class="index-excerpt" href="/2019/12/09/docker-front/" target="_self">
+        <div>
           
           前言最近工作中会遇到这样的一个问题，当有个依赖包更新，或者某些配置需要更新的时候，需要在目前处理的所有系统中一起更新，这样的工作量其实是挺繁琐的。（多个系统配置几乎一致）。所以就想着能够有方法统一这个构建环境，包依赖和webpack配置能够统一处理。 实践过程 第一步：#抽取公共配置作为配置仓库 docker-front 第二步：编写Dockerfile，以node镜像为基础，拉取配置仓库为内容的
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -636,9 +666,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/docker/">docker</a>
+              <a href="/tags/docker/">#docker</a>
             
-              <a href="/tags/%E6%9E%84%E5%BB%BA/">构建</a>
+              <a href="/tags/%E6%9E%84%E5%BB%BA/">#构建</a>
             
           </div>
         
@@ -683,63 +713,65 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
   
 
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
   
     <!-- cnzz Analytics Icon -->
     <span id="cnzz_stat_icon_1280774100" style="display: none"></span>
   
-</footer>
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -750,42 +782,23 @@
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
 
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-
-
-
-  <script defer src="/js/leancloud.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -793,24 +806,18 @@
 
 
 
-
-
-
-
-
-
-
-
   
     <!-- Baidu Analytics -->
     <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
     </script>
   
 
@@ -824,17 +831,44 @@
 
   
     <!-- cnzz Analytics -->
-    <script defer src="//s4.cnzz.com/z_stat.php?id=1280774100&show=pic"
-            type="text/javascript"></script>
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//s4.cnzz.com/z_stat.php?id=1280774100&show=pic');
+      }
+    </script>
+  
+
+  
+    
   
 
 
 
 
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
-<!-- 主题的启动项 保持在最底部 -->
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

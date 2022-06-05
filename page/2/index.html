@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -25,15 +25,19 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+  
   <title>进击的前端工程狮</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -42,21 +46,40 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"crews.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e0573025d0cbd0186c86a21250f26e69","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":1280774100,"leancloud":{"app_id":"nH7hj3REOl2YmwRYD4G0sJjh-MdYXbMMI","app_key":"GzlH8knsCkvR5vGWn3pPhj3c","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+
+  
 <meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>程序与浪漫</strong>
@@ -138,6 +161,7 @@
               &nbsp;<i class="iconfont icon-search"></i>&nbsp;
             </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
@@ -150,34 +174,40 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg/banner.jpeg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="进击的前端攻城狮">
-              
-            </span>
+  
 
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/banner.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="进击的前端攻城狮"></span>
           
         </div>
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
+        <div id="board"
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
@@ -196,12 +226,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/11/29/history/" target="_self">
+      <a class="index-excerpt" href="/2019/11/29/history/" target="_self">
+        <div>
           
           场景针对pushState操作完，浏览器后退，以及页面返回时历史页面的处理。 需要了解的知识点  PopStateEvent 浏览器后退事件 History.pushState() HashChangeEvent History 前端路由hash history  处理方法Page A 在跳转Page B前需要保存信息到url中，处理完后返回A，需要将其信息保留下来。 我们处理的方式是，在跳转B前
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -217,9 +247,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/react/">react</a>
+              <a href="/tags/react/">#react</a>
             
-              <a href="/tags/history/">history</a>
+              <a href="/tags/history/">#history</a>
             
           </div>
         
@@ -238,12 +268,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/11/16/http-proxy/" target="_self">
+      <a class="index-excerpt" href="/2019/11/16/http-proxy/" target="_self">
+        <div>
           
           前言现在前端开发的方式基本都是前后端分离的开发方式，那就会遇到一些请求接口的问题，比如跨域，比如代理接口地址等等。处理这些问题的方法多种多样，常见的有devServer proxy代理，nginx的反向代理方式。其原理都是接口代理转发到制定的服务端。 权限认证通过devServer或nginx的proxy可以轻松实现代理，但是权限认证的问题则需根据后端认证方式重新配置。1、jwt的认证方式如果采用
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -259,9 +289,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/nginx/">nginx</a>
+              <a href="/tags/nginx/">#nginx</a>
             
-              <a href="/tags/api/">api</a>
+              <a href="/tags/api/">#api</a>
             
           </div>
         
@@ -280,12 +310,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/08/04/mobx-2/" target="_self">
+      <a class="index-excerpt" href="/2019/08/04/mobx-2/" target="_self">
+        <div>
           
           前言在《mobx 实践与理解 一》中，我们只是简单的使用了mobx，实现了类似redux那样的状态管理功能。实际工作需求要处理的场景远远不止这些。今天要给大家解决《一》中提出的几个问题。 实践操作异步action问题异步在前端的工作中是总要处理的问题，比如最简单的场景就是异步获取接口数据。那么在mobx中我们怎么使用呢？可以看到官方中文文档中有介绍几种，我这里将演示async&#x2F;await方法。de
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -301,7 +331,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/mobx/">mobx</a>
+              <a href="/tags/mobx/">#mobx</a>
             
           </div>
         
@@ -320,12 +350,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/08/02/mobx/" target="_self">
+      <a class="index-excerpt" href="/2019/08/02/mobx/" target="_self">
+        <div>
           
           前言mobx 是一个简单、可拓展的状态管理库。核心就是定义可观察的状态，对状态的变更作出相对应的响应。使用mobx，有助于理解数据驱动视图，状态管理。和redux的思想做对比，会得到更多思考和收获。 环境搭建读者可以按下面步骤搭建实践demo，也可以直接拉去代码实践操作。demo地址 第一步这里是用yarn 通过create-react-app 去快速构建项目结构，也可以自己处理yarn crea
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -341,7 +371,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/mobx/">mobx</a>
+              <a href="/tags/mobx/">#mobx</a>
             
           </div>
         
@@ -360,12 +390,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/07/05/nas/" target="_self">
+      <a class="index-excerpt" href="/2019/07/05/nas/" target="_self">
+        <div>
           
           前言最近看到树莓派的一些创意 DIY，发现其中有家庭影院的概念，接着了解了相关的知识。从而接触到 NAS，开启了对将来家庭数据管理的想象。 什么是 nas百科上的概念  NAS（Network Attached Storage：网络附属存储）按字面简单说就是连接在网络上，具备资料存储功能的装置，因此也称为“网络存储器”。它是一种专用数据存储服务器。它以数据为中心，将存储设备与服务器彻底分离，集中管
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -381,7 +411,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/nas/">nas</a>
+              <a href="/tags/nas/">#nas</a>
             
           </div>
         
@@ -400,12 +430,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/06/11/yeoman-generator/" target="_self">
+      <a class="index-excerpt" href="/2019/06/11/yeoman-generator/" target="_self">
+        <div>
           
           前言在搭建前端脚手架那篇文章中，对yeoman-generator的解释比较简略，可能使用上会出现一些问题所以今天来继续介绍yeoman-generator yeoman-generator从官方文档来看简单说下用到的功能  任务执行系统 文件系统、模版渲染 命令行问答系统  任务执行系统这里有个概念自动执行task命名规则影响是否自动执行，影响执行顺序下划线开头命名的成员函数视为内部函数 类似
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -421,7 +451,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/generator/">generator</a>
+              <a href="/tags/generator/">#generator</a>
             
           </div>
         
@@ -440,12 +470,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/05/08/yeoman/" target="_self">
+      <a class="index-excerpt" href="/2019/05/08/yeoman/" target="_self">
+        <div>
           
           前言什么是脚手架呢？在我的理解中脚手架是一个尽可能减少手工操作又可以很好的完成项目搭建的自动化工具。 脚手架为什么便于项目搭建？在工作中，我们很可能会面对类型非常相同的多个项目，在创建新的项目的时候，一般都是通过copy文件到新的目录下，手动修改完成新项目的搭建通过手工的方式，很有可能会出现一些细小的错误，导致项目运行不起来，浪费时间。还有通过脚手架可以达到，创建模版文件的效果，例如一个页面是由v
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -461,9 +491,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/node/">node</a>
+              <a href="/tags/node/">#node</a>
             
-              <a href="/tags/typescript/">typescript</a>
+              <a href="/tags/typescript/">#typescript</a>
             
           </div>
         
@@ -482,12 +512,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/04/23/cookie/" target="_self">
+      <a class="index-excerpt" href="/2019/04/23/cookie/" target="_self">
+        <div>
           
           简单了解session cookie常用的会话跟踪技术是cookie与sessioncookie是存储在客户端，session是存储在server端可以这么说，cookie是一种补足http协议无状态缺陷的机制一个cookie的设置分为4步  客户端发送http请求 服务器响应http请求 set-cookies response 客户端发送http请求 包含cookie头部 发送到服务器端 服务
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -503,7 +533,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/cookie/">cookie</a>
+              <a href="/tags/cookie/">#cookie</a>
             
           </div>
         
@@ -522,12 +552,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/04/18/rrweb/" target="_self">
+      <a class="index-excerpt" href="/2019/04/18/rrweb/" target="_self">
+        <div>
           
           前言看到标题，大家会好奇，rrweb究竟是什么？rrweb是一个开源框架，目前主要用于web 屏幕录制和回放。利用rrweb，以及它future提案，将对bug收集，屏幕录制，自动化测试等等有非常大的作用。笔者看了官方对其的说明文章后，非常期待rrweb的后续发展，并且实践了一下rrweb与谷歌插件的集合，实现了对任意网页的屏幕录制与回放功能。 起步通过阅读官方的使用指南，快速实现了一次屏幕录制和
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -543,7 +573,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/rrweb/">rrweb</a>
+              <a href="/tags/rrweb/">#rrweb</a>
             
           </div>
         
@@ -562,12 +592,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/2019/04/11/passport/" target="_self">
+      <a class="index-excerpt" href="/2019/04/11/passport/" target="_self">
+        <div>
           
           passport是如何将用户信息注入到context中前言今天在阅读egg-conde中的本地验证的代码时候，发现有些地方不是特别理解。就尝试着阅读源码去寻找问题的根源。具体问题是: 在通过passport验证后，egg-cnode是直接可以在controller中使用ctx.user获取用户的身份信息，但是过程中是看不到这一字段产生的过程的，文档中好像也没有说明。 具体解析涉及到几个npm 包
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -583,7 +613,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/nodejs/">nodejs</a>
+              <a href="/tags/nodejs/">#nodejs</a>
             
           </div>
         
@@ -628,63 +658,65 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
-            总访问量 
-            <span id="leancloud-site-pv"></span>
-             次
-          </span>
-      
-      
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
-            总访客数 
-            <span id="leancloud-site-uv"></span>
-             人
-          </span>
-      
-
-    
-  </div>
-
-
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
   
 
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
   
     <!-- cnzz Analytics Icon -->
     <span id="cnzz_stat_icon_1280774100" style="display: none"></span>
   
-</footer>
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -695,42 +727,23 @@
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
 
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-
-
-
-  <script defer src="/js/leancloud.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -738,24 +751,18 @@
 
 
 
-
-
-
-
-
-
-
-
   
     <!-- Baidu Analytics -->
     <script defer>
-      var _hmt = _hmt || [];
-      (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?e0573025d0cbd0186c86a21250f26e69";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
     </script>
   
 
@@ -769,17 +776,44 @@
 
   
     <!-- cnzz Analytics -->
-    <script defer src="//s4.cnzz.com/z_stat.php?id=1280774100&show=pic"
-            type="text/javascript"></script>
+    <script defer>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//s4.cnzz.com/z_stat.php?id=1280774100&show=pic');
+      }
+    </script>
+  
+
+  
+    
   
 
 
 
 
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
-<!-- 主题的启动项 保持在最底部 -->
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
